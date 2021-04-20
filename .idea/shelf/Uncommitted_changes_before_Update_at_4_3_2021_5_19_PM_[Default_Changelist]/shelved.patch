@@ -1,0 +1,148 @@
+Index: src/main/resources/public/index.html
+===================================================================
+diff --git a/src/main/resources/public/index.html b/build/resources/main/public/form.html
+rename from src/main/resources/public/index.html
+rename to build/resources/main/public/form.html
+--- a/src/main/resources/public/index.html	
++++ b/build/resources/main/public/form.html	
+@@ -1,5 +1,5 @@
+ <!doctype html>
+-<html lang="en" xmlns:th="http://www.w3.org/1999/html">
++<html lang="en" xmlns:th="http://www.thymeleaf.org">
+ <head>
+     <title>Dashboard | OP - PUCMM</title>
+     <meta charset="utf-8">
+@@ -26,8 +26,8 @@
+     <!-- NAVBAR -->
+     <nav class="navbar navbar-default navbar-fixed-top">
+         <div class="brand">
+-            <a href="index.html"><img src="assets/img/logo-dark.png" alt="Klorofil Logo"
+-                                      class="img-responsive logo"></a>
++            <a href="form.html"><img src="assets/img/logo-dark.png" alt="Klorofil Logo"
++                                     class="img-responsive logo"></a>
+         </div>
+         <div class="container-fluid">
+             <div class="navbar-btn">
+@@ -64,8 +64,8 @@
+         <div class="sidebar-scroll">
+             <nav>
+                 <ul class="nav">
+-                    <li><a href="index.html" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
+-                    <li><a href="charts.html" class=""><i class="lnr lnr-chart-bars"></i> <span>Charts</span></a></li>
++                    <li><a href="/formularios/maps" class=""><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
++                    <li><a href="/formularios" class="active"><i class="lnr lnr-file-empty"></i> <span>Formularios</span></a></li>
+                     <li><a href="panels.html" class=""><i class="lnr lnr-cog"></i> <span>Panels</span></a></li>
+                     <li>
+                         <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i>
+@@ -74,7 +74,7 @@
+                             <ul class="nav">
+                                 <li><a href="page-profile.html" class="">Profile</a></li>
+                                 <li><a href="page-login.html" class="">Login</a></li>
+-                                <li><a href="register.html" class="">User Register</a></li>
++                                <li><a href="/user" class="">User Register</a></li>
+                             </ul>
+                         </div>
+                     </li>
+@@ -100,38 +100,94 @@
+                             <div class="header">
+                                 <p class="lead">Formulario de registro</p>
+                             </div>
+-                            <form method="post" class="form-auth-small" action="/" id="form">
++                            <form method="post" class="form-auth-small" th:attr="action=${accion}" id="form">
+                                 <div class="form-group">
+                                     <label class="fancy-checkbox">
+-                                        <span>Full Name</span>
++                                        <span>Nombre completo</span>
+                                     </label>
+-                                    <input type="text" class="form-control" name="fullName" id="fullName"placeholder="Full name" required>
++                                    <input type="text" class="form-control" name="name" id="fullName" placeholder="Nombre" required>
+                                 </div>
+                                 <div class="form-group">
+                                     <label class="fancy-checkbox">
+                                         <span>Sector</span>
+                                     </label>
+-                                    <input type="text" class="form-control" name="username" id="sector" placeholder="Sector" required>
++                                    <input type="text" class="form-control" name="sector" id="sector" placeholder="Sector" required>
+                                 </div>
+                                 <div class="form-group">
+                                     <label class="fancy-checkbox">
+                                         <span>Academic Level</span>
+                                     </label>
+-                                    <select name="academicLevel" id="role" placeholder="Academic Level" class="form-control" aria-required="true" required>
+-                                        <option value="">Academic Level</option>
++                                    <select name="level" id="role" placeholder="level" class="form-control" aria-required="true" required>
++
+                                         <option name="academicLevel" value="Basico">Basico</option>
+                                         <option name="academicLevel" value="Medio">Medio</option>
+-                                        <option name="academicLevel" value="Gradi">Grado</option>
++                                        <option name="academicLevel" value="Grado">Grado</option>
+                                         <option name="academicLevel" value="Maestria">Maestria</option>
+                                         <option name="academicLevel" value="Doctorado">Doctorado</option>
+                                     </select>
+                                 </div>
++<!--
++                                <button type="submit" th:text="GUARDAR FORMULARIO" class="btn btn-primary btn-lg btn-block">GUARDAR FORMULARIO</button>
++-->
++
++                                <button type="submit" class="btn btn-primary btn-lg bg-primary">GUARDAR FORMULARIO</button>
++
+                             </form>
++<!--
++                            <button type="submit" class="btn btn-primary" th:text="${save}">GUARDAR FORMULARIO</button>
++-->
++
+                         </div>
+                         <!--END FORMULARIO--->
+                     </div>
+                 </div>
+-                <button type="submit" class="btn btn-primary btn-lg btn-block">GUARDAR FORMULARIO</button>
++                <!-- END OVERVIEW -->
++            </div>
++        </div>
++        <!-- END MAIN CONTENT -->
++        <!-- START MAIN CONTENT 2 -->
++        <div class="main-content">
++            <div class="container-fluid">
++                <!-- OVERVIEW -->
++                <div class="panel panel-headline">
++                    <div class="panel-heading">
++                        <h3 class="panel-title">LISTADO DE USUARIOS</h3>
++                        <div class="container-fluid">
++                            <div class="row">
++                                <div class="col-md-6">
++                                    <!-- BASIC TABLE -->
++                                    <div class="panel">
++                                        <div class="panel-body">
++                                            <table class="table">
++                                                <thead>
++                                                <tr>
++
++                                                    <th>Nombre completo</th>
++                                                    <th>Sector</th>
++                                                    <th>Nivel academico</th>
++
++                                                </tr>
++                                                </thead>
++                                                <tbody>
++                                                <tr th:each="aux : ${forms}">
++                                                    <td th:text="${aux.name}">Nombre</td>
++                                                    <td th:text="${aux.sector}">Precio</td>
++                                                    <td th:text="${aux.academicLevel}">Cantidad</td>
++                                                    <td>
++                                                        <a th:hidden="!${logged}" th:text="Editar" th:href="'formularios/editar/'+${aux.id}" th class="btn btn-secondary btn-sm"/> |
++                                                        <a th:hidden="!${logged}" th:text="Eliminar" th:href="'/formularios/eliminar/'+${aux.id}" th class="btn btn-danger btn-sm"/> |
++                                                    </td>
++                                                </tr>
++                                                </tbody>
++                                            </table>
++                                        </div>
++                                        <!-- END BASIC TABLE -->
++                                    </div>
++                                </div>
++                            </div>
++                        </div>
++                    </div>
++                </div>
+                 <!-- END OVERVIEW -->
+             </div>
+         </div>

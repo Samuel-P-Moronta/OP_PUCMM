@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head >
+	<meta charset="utf-8">
+	<title>Mapas | OP-PUCMM</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<!-- VENDOR CSS -->
+	<link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/vendor/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="assets/vendor/linearicons/style.css">
+	<link rel="stylesheet" href="assets/vendor/chartist/css/chartist-custom.css">
+	<!-- MAIN CSS -->
+	<link rel="stylesheet" href="assets/css/main.css">
+	<!-- GOOGLE FONTS -->
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+	<!-- ICONS -->
+	<link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon.png">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.4.2/css/ol.css" type="text/css">
+	<!--JAVASCRIPT FROM SCRIPT FORLDER--->
+	<script src="scripts/offline.js"></script>
+	<style>
+		#map {
+			height: 500px;
+			width: 100%;
+		}
+	</style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmO0JHOHAXY2C3Ud49KbMSwFf3APep1Ow"></script>
+	<script type="text/javascript" th:inline="javascript">
+		var forms = [[${formularios}]]
+		var locations = [
+
+		];
+		var name = ''
+		for (i = 0; i < forms.length; i++) {
+			name = forms[i].name
+			if(forms.length > 1){
+
+			}
+			locations.push(
+					[forms[i].name,
+					forms[i].location.latitude,
+					forms[i].location.longitude,i+1]
+			)
+		}
+		console.log("Localizaciones: ")
+		console.log(locations)
+
+		function InitMap() {
+			var map = new google.maps.Map(document.getElementById('map'), {
+				zoom: 13,
+				center: new google.maps.LatLng(locations[0][1], locations[0][2]),
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			});
+			var infowindow = new google.maps.InfoWindow();
+			var marker, i;
+			for (i = 0; i < locations.length; i++) {
+				marker = new google.maps.Marker({
+					position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+					map: map
+				});
+				google.maps.event.addListener(marker, 'click', (function (marker, i) {
+					return function () {
+						infowindow.setContent(locations[i][0]);
+						infowindow.open(map, marker);
+					}
+				})(marker, i));
+			}
+		}
+	</script>
+</head>
+
+<body onload="InitMap(); updateOnlineStatus()">
+<!-- WRAPPER -->
+<div id="wrapper">
+	<!-- NAVBAR -->
+	<nav class="navbar navbar-default navbar-fixed-top" th:replace="public/plantilla.html::header">
+		<div class="brand">
+			<a href="form.html"><img src="http://localhost:7000/assets/img/logo-dark.png" alt="Klorofil Logo"
+									 class="img-responsive logo"></a>
+		</div>
+		<div class="container-fluid">
+			<div class="navbar-btn">
+				<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
+			</div>
+			<div id="navbar-menu">
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<a id="idIndicator" role="alert"></a>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
+								class="lnr lnr-question-circle"></i> <span>Help</span> <i
+								class="icon-submenu lnr lnr-chevron-down"></i></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Basic Use</a></li>
+							<li><a href="#">Working With Data</a></li>
+							<li><a href="#">Security</a></li>
+							<li><a href="#">Troubleshooting</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img
+								src="http://localhost:7000/assets/img/icons8-admin-settings-male-50.png" class="img-circle" alt="Avatar">
+							<span th:text="${userName}"></span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+						<ul class="dropdown-menu">
+							<li><a href="/logout"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- END NAVBAR -->
+	<!-- LEFT SIDEBAR -->
+	<div th:replace="public/plantilla.html::sidebar">
+
+	</div>
+
+	<!-- END LEFT SIDEBAR -->
+	<!-- MAIN -->
+	<div class="main">
+		<!-- MAIN CONTENT -->
+		<div class="main-content">
+			<div class="container-fluid">
+				<!-- OVERVIEW -->
+				<div class="panel panel-headline">
+					<div class="panel-heading">
+						<h3 class="panel-title">OFICINA DE PLANEAMIENTO</h3>
+						<p class="panel-subtitle">Mapa | Localizacion de los formularios registrados</p>
+					</div>
+					<script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.4.2/build/ol.js"></script>
+
+					<div class="card mb-4">
+						<div class="card-body">
+							<div id="map" class="map"></div>
+						</div>
+						<div class="card-footer">
+						</div>
+					</div>
+				</div>
+				<!-- END OVERVIEW -->
+			</div>
+		</div>
+		<!-- END MAIN CONTENT -->
+	</div>
+	<!-- END MAIN -->
+	<div class="clearfix"></div>
+	<footer>
+		<div class="container-fluid">
+			<p class="copyright">&copy; 2017 <a href="https://www.themeineed.com" target="_blank">Theme I Need</a>. All Rights Reserved.</p>
+		</div>
+	</footer>
+</div>
+<!-- END WRAPPER -->
+<!-- Javascript -->
+<script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script src="/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
+<script src="/assets/vendor/chartist/js/chartist.min.js"></script>
+<script src="/assets/scripts/klorofil-common.js"></script>
+</body>
+
+</html>

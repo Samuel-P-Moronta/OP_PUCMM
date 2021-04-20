@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  manifest="sinconexion.appcache">
+<head th:fragment="head">
+    <title>OP - PUCMM</title><meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- VENDOR CSS -->
+    <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/vendor/linearicons/style.css">
+    <link rel="stylesheet" href="/assets/vendor/chartist/css/chartist-custom.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+    <link rel="stylesheet" href="/assets/css/demo.css">
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+    <!-- ICONS -->
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/img/pucmm-logo.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/img/apple-icon.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <link href="css/myStyle.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+    <!--JAVASCRIPT FROM SCRIPT FORLDER--->
+    <script src="scripts/offline.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
+
+
+</head>
+
+<body onload="updateOnlineStatus()">
+<!-- WRAPPER -->
+<div id="wrapper">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-default navbar-fixed-top" th:fragment="header" >
+        <div class="brand">
+            <h3>OP | PUCMM</h3>
+        </div>
+        <div class="container-fluid">
+            <div class="navbar-btn">
+                <button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
+            </div>
+            <div id="navbar-menu">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a id="idIndicator" role="alert"></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown"><img
+                                src="/assets/img/admin-icon.png" class="img-circle" alt="Avatar">
+                            <span th:text="${fullName}"></span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/logout"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- END NAVBAR -->
+    <!-- LEFT SIDEBAR -->
+    <div id="sidebar-nav" class="sidebar" th:fragment="sidebar">
+        <div class="sidebar-scroll">
+            <nav>
+                <ul class="nav">
+                    <br/>
+
+                        <li  th:hidden="${!admin}" ><a href="/mapa"  th:hidden="${!admin}" th:class="${map}"><i  th:hidden="${!admin}" class="lnr lnr-map"></i> <span  th:hidden="${!admin}" >Mapas</span></a></li>
+                        </li>
+
+
+                    <li  th:hidden="${!admin}" ><a href="/report"  th:hidden="${!admin}" th:class="${report}"><i  th:hidden="${!admin}" class="lnr lnr-file-add"></i>
+                        <span  th:hidden="${!admin}" >Informes</span></a></li>
+                    <li ><a href="/formularios"  th:class="${formulario}"><i class="lnr lnr-file-empty"></i>
+                        <span >Formularios</span></a></li>
+                    <li  th:hidden="${!admin}" >
+                        <a  th:hidden="${!admin}" href="#subPages" data-toggle="collapse" class="collapsed"><i  th:hidden="${!admin}" class="lnr lnr-user"></i>
+                            <span  th:hidden="${!admin}" >Usuarios</span> <i  th:hidden="${!admin}" class="icon-submenu lnr lnr-chevron-left"></i></a>
+                        <div th:hidden="${!admin}" id="subPages" class="collapse ">
+                            <ul th:hidden="${!admin}" class="nav">
+                                <li th:hidden="${!admin}" ><a th:hidden="${!admin}" href="page-login.html" class="">Login</a></li>
+                                <li th:hidden="${!admin}" ><a th:hidden="${!admin}" href="/userRegister" class="">User Register</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- END LEFT SIDEBAR -->
+    <!-- MAIN -->
+    <div class="main">
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+
+        </div>
+        <!-- END MAIN CONTENT -->
+    </div>
+    <!-- END MAIN -->
+    <div class="clearfix"></div>
+    <footer th:fragment="footer">
+        <div class="container-fluid">
+            </a>All Rights Reserved.</a>
+        </div>
+    </footer>
+</div>
+<!-- END WRAPPER -->
+<!-- Javascript -->
+<div th:fragment="javascript">
+    <script src="/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
+    <script src="/assets/vendor/chartist/js/chartist.min.js"></script>
+    <script src="/assets/scripts/klorofil-common.js"></script>-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</div>
+
+</body>
+</html>
