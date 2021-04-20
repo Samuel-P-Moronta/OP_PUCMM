@@ -1,5 +1,7 @@
 # PROYECTO FINAL INTERNET AVANZADO *(PROGRAMACION WEB)*
+
 URL: https://astrocaribbean.tech/
+
 
 Desarrollado por:
 - Samuel Peña M
@@ -17,13 +19,13 @@ web, la aplicación utilizará las características de HTML5 avanzadas integrada
 
 Objetivos:
 
--[X] Utilizar las funcionales avanzadas de HTML5. 
--[X] Implementar aplicaciones que trabajen desconectadas y sincronicen cuando dispongan de conexión. 
--[X] Utilizar dispositivos móviles con aplicaciones web.
+- Utilizar las funcionales avanzadas de HTML5. 
+- Implementar aplicaciones que trabajen desconectadas y sincronicen cuando dispongan de conexión. 
+- Utilizar dispositivos móviles con aplicaciones web.
 -----------------------------------------------------------------------------------------
-##Requerimientos puntuales:
+- Requerimientos puntuales:
 
-###Primera version
+- PRIMERA VERSION
 LINK: https://github.com/waterpolord/progweb-parcial2
 1. La aplicación será una aplicación Web.
 2. Aplicación Web debe tener un diseño adaptado a dispositivos móviles con una
@@ -52,7 +54,7 @@ LINK: https://github.com/waterpolord/progweb-parcial2
     de un dominio y configurado con certificado digital.
 13. La prueba la estaremos realizando vía un teléfono inteligente o tableta.
     
-###SEGUNDA VERSION
+-SEGUNDA VERSION
 1. Los formularios procesados por el usuario deben permitir tomar una foto desde el
     equipo, el cual debe ser incluido en la información almacenada de forma local y
     enviada al servidor. La imagen debe ser almacenada y enviada en base 64. Ver la
