@@ -17,6 +17,9 @@
     <!-- ICONS -->
     <link rel="apple-touch-icon" sizes="76x76" href="assets/img/pucmm-logo.png">
     <link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
 </head>
 
 <body>
@@ -34,21 +37,47 @@
                         </div>
                         <form method="post" class="form-auth-small" action="/userRegister" id="form">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="fullName" id="firstName"placeholder="Full Name" required>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-id-card"></i></span>
+
+                                <input type="text" class="form-control" name="fullName" id="firstName"
+                                       placeholder="Full Name" required>
                             </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="username" id="username" placeholder="Username" required>
                             </div>
+
+
                             <div class="form-group">
-                                <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user-plus"></i></span>
+
+                                    <input type="text" class="form-control" name="username" id="username"
+                                           placeholder="Username" required>
+                                </div>
                             </div>
+
                             <div class="form-group">
-                                <select name="role" id="role" placeholder="role" class="form-control" aria-required="true" required>
+                                <div class="input-group">
+
+                                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+
+                                <input type="password" class="form-control" name="password" id="password"
+                                       placeholder="Password" required>
+                            </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-group"></i></span>
+
+                                <select name="role" id="role" placeholder="role" class="form-control"
+                                        aria-required="true" required>
                                     <option value="">Role</option>
                                     <option name="role" value="Administrador">Administrador</option>
                                     <option name="role" value="Empleado">Empleado</option>
 
                                 </select>
+                                </div>
+
                             </div>
                             <div class="form-group clearfix">
                                 <label class="fancy-checkbox element-left">

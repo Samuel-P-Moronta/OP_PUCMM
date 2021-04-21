@@ -45,10 +45,12 @@ function GEOPosicion() {
     navigator.geolocation.getCurrentPosition(success);
 }
 
+
 function addForm() {
     var fullName = "";
     var sector = "";
     var academicLevel = "";
+
 
     fullName = $("#fullName").val();
     sector = $("#sector").val();
@@ -90,7 +92,8 @@ function addForm() {
             latitude: lati,
             longitude: longi,
             user: document.querySelector("#idUsuario").value,
-            //usuario: document.querySelector("#idUsuario").value,
+
+
         });
 
         request.onerror = function (e) {

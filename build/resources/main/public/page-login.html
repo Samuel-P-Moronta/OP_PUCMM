@@ -18,6 +18,7 @@
 	<!-- ICONS -->
 	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/pucmm-logo.png">
 	<link rel="icon" type="image/png" sizes="96x96" href="assets/img/pucmm-logo.png">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 </head>
 <body>
 	<!-- WRAPPER -->
@@ -33,18 +34,26 @@
 							</div>
 							<form method="post" class="form-auth-small" action="/login">
 								<div class="form-group">
+									<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user"></i></span>
 									<input type="text" class="form-control" id="username" name="username" placeholder="username">
 								</div>
-								<div class="form-group">
-									<input type="password" class="form-control" id="password" name="password" placeholder="Password">
 								</div>
+								<div class="form-group">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="fa fa-key"></i></span>
+
+										<input type="password" class="form-control" id="password" name="password" placeholder="Password">
+								</div>
+								</div>
+
 								<div class="form-group clearfix">
 									<label class="fancy-checkbox element-left">
 										<input type="checkbox" name="rememberMe"><span>Remember me</span>
 									</label>
 								</div>
 								<div class="form-group">
-									<p  th:text="${Error}" style="color:#ff0000"></p>
+									<p  th:text="${Error}" style="color:#ff0000; "></p>
 								</div>
 								<button onclick="validate()" type="submit" class="btn btn-primary btn-lg btn-block">LOGIN</button>
 								<p></p>

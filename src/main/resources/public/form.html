@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"  manifest="sinconexion.appcache">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="public/plantilla.html::head">
 
 </head>
@@ -26,6 +26,7 @@
                 <!-- OVERVIEW -->
                 <div class="panel panel-headline">
                     <div class="panel-heading">
+
                         <h3 class="panel-title">OFICINA DE PLANEAMIENTO</h3>
                         <p class="panel-subtitle">Pontificia Universidad Catolica Madre y Maestra</p>
                         <!--PONER DIV AQUI O TEMPLATE PARA EL FORMULARIO--->
@@ -34,58 +35,82 @@
                             <div class="header">
                                 <p class="lead">Formulario de registro</p>
                             </div>
-                            <form class="form-auth-small" th:attr="action=${accion}" name="form"
-                                  id="form">
-                                <div class="form-group">
-                                    <label class="fancy-checkbox">
-                                        <span>Nombre completo</span>
-                                    </label>
-                                    <input type="text" class="form-control" name="fullName" id="fullName"
-                                           placeholder="Nombre Completo" onclick="GEOPosicion()" required>
+                            <!---PARA PRESENTAR AQUI LA FOTOGRAFIA TOMADA--->
+                            <div class="col-md-4">
+
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Fotografia</h3>
+                                    </div>
+                                    <div class="panel-body" style="width: 50px; height: 179px">
+
+                                    </div>
+                                    <div class="panel-footer">
+                                        <a class="btn btn-success update-pro" href="index.html#webcam-app"
+                                           title="TOMAR FOTOGRAFIA"
+                                           target="_blank"><i class="fa fa-camera"></i>
+                                            <span>TOMAR FOTOGRAFIA</span></a>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="fancy-checkbox">
-                                        <span>Sector</span>
-                                    </label>
-                                    <input type="text" class="form-control" name="sector" id="sector"
-                                           placeholder="Sector" onclick="GEOPosicion()" required>
-                                </div>
-                                <div class="form-group">
-                                    <label class="fancy-checkbox">
-                                        <span>Academic Level</span>
-                                    </label>
-                                    <select name="academicLevel" id="academicLevel" placeholder="level"
-                                            class="form-control"
-                                            aria-required="true" onclick="GEOPosicion()" required>
-                                        <option selected> Nivel Academico</option>
-                                        <option name="academicLevel" value="Basico">Basico</option>
-                                        <option name="academicLevel" value="Medio">Medio</option>
-                                        <option name="academicLevel" value="Grado">Grado</option>
-                                        <option name="academicLevel" value="Maestria">Maestria</option>
-                                        <option name="academicLevel" value="Doctorado">Doctorado</option>
-                                    </select>
-                                </div>
-                                <input id="idUsuario" type="hidden" name="idUsuario" th:value="${user}">
-                                <input type="hidden" name="latitude" id="latitude" value="">
-                                <input type="hidden" name="longitude" id="longitude" value="">
+                            </div>
+                            <div class="col-md-8">
+
+                                <div class="panel">
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <label class="fancy-checkbox">
+                                                <span>Nombre completo</span>
+                                            </label>
+                                            <input type="text" class="form-control" name="fullName" id="fullName"
+                                                   placeholder="Nombre Completo" onclick="GEOPosicion()" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="fancy-checkbox">
+                                                <span>Sector</span>
+                                            </label>
+                                            <input type="text" class="form-control" name="sector" id="sector"
+                                                   placeholder="Sector" onclick="GEOPosicion()" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="fancy-checkbox">
+                                                <span>Academic Level</span>
+                                            </label>
+                                            <select name="academicLevel" id="academicLevel" placeholder="level"
+                                                    class="form-control"
+                                                    aria-required="true" onclick="GEOPosicion()" required>
+                                                <option selected> Nivel Academico</option>
+                                                <option name="academicLevel" value="Basico">Basico</option>
+                                                <option name="academicLevel" value="Medio">Medio</option>
+                                                <option name="academicLevel" value="Grado">Grado</option>
+                                                <option name="academicLevel" value="Maestria">Maestria</option>
+                                                <option name="academicLevel" value="Doctorado">Doctorado</option>
+                                            </select>
+                                        </div>
+                                        <input id="idUsuario" type="hidden" name="idUsuario" th:value="${user}">
+                                        <input type="hidden" name="latitude" id="latitude" value="">
+                                        <input type="hidden" name="longitude" id="longitude" value="">
+                                        <input type="hidden" id="foto" value="">
 
 
-                                <div class="buttons">
-                                    <button type="submit" onclick="addForm()">
-                                        <a class="btn effect04" data-sm-link-text="CLICK"
-                                           target="_blank"><span>GUARDAR</span></a>
-                                    </button>
-                                    <button class="infoConexion" id="enviarForm" type="submit">
-                                        <a class="btn effect04" data-sm-link-text="CLICK"
-                                           target="_blank"><span>ENVIAR</span></a>
-                                    </button>
+                                    </div>
+                                    <div class="panel-footer">
+                                        <button type="submit" onclick="addForm()">
+
+                                            <a class="btn btn-success update-pro" data-sm-link-text="CLICK"
+                                               title="TOMAR FOTOGRAFIA"
+                                               target="_blank"><i class="fa fa-save"></i>
+                                                <span>GUARDAR</span></a>
+                                        </button>
+                                    </div>
                                 </div>
-                                <!-- START MAIN CONTENT 2 -->
-                                <div class="main-content">
-                                    <!-- OVERVIEW -->
-                                    <div class="panel panel-headline">
-                                        <div class="panel-heading">
-                                            <h3 class="panel-title">Formularios recolectados</h3>
+                            </div>
+                            <div class="col-md-12">
+
+                                <div class="panel">
+                                    <div class="panel-body">
+                                        <form class="form-auth-small" th:attr="action=${accion}" name="form"
+                                              id="form">
+                                            <h3 class="panel-title">Formularios registrados</h3>
                                             <div class="table-responsive">
                                                 <table class="table" id="dataTable">
                                                     <thead>
@@ -100,22 +125,15 @@
                                                     </thead>
                                                     <tbody id="formList" name="formList">
                                                     <tr th:each="aux : ${b}">
-                                                       
                                                         <td th:text="${aux.name}"></td>
                                                         <td th:text="${aux.sector}"></td>
                                                         <td th:text="${aux.academicLevel}"></td>
                                                         <td>
-                                                            <!-- <a id='edit' th:href="'formularios/editar/'+${aux.id}"
-                                                                style="color: #2B333E" class="edit"
-                                                                data-toggle="modal"><i class="material-icons"
-                                                                                       data-toggle="tooltip"
-                                                                                       title="Edit">&#xE254;</i></a>
-                                                             <a id='delete' th:href="'formularios/eliminar/'+${aux.id}"
-                                                                style="color: red" class="delete" data-toggle="modal"><i
-                                                                     class="material-icons" data-toggle="tooltip"
-                                                                     title="Delete">&#xE872;</i></a>-->
-                                                            <!--AGREGUÉ ESTO PARA EL MODAL, LO OTRO ESTA IGUAL QUE COMO SE DEJÓ LA ULTIMA VEZ-->
-                                                            <a id="editar" href="#editModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
+
+                                                            <a id="editar" href="#editModal" class="edit"
+                                                               data-toggle="modal"><i class="material-icons"
+                                                                                      data-toggle="tooltip"
+                                                                                      title="Editar">&#xE254;</i></a>
                                                             <a id="borrar" href="#deleteModal" style="color: red"
                                                                class="delete" data-toggle="modal"><i
                                                                     class="material-icons" data-toggle="tooltip"
@@ -125,138 +143,152 @@
                                                     </tbody>
                                                 </table>
                                             </div>
-                                        </div>
-                                        <!-- END BASIC TABLE -->
+                                        </form>
+                                    </div>
+                                    <div class="panel-footer">
+                                        <button class="infoConexion" id="enviarForm" type="submit">
+                                            <a class="btn btn-success update-pro" data-sm-link-text="CLICK"
+                                               title="ENVIAR FORM"
+                                               target="_blank"><i class="fa fa-upload"></i>
+                                                <span>ENVIAR</span></a>
+                                        </button>
+
                                     </div>
                                 </div>
-
-                            </form>
-                            <!--
-                                                        <button type="submit" class="btn btn-primary" th:text="${save}">GUARDAR FORMULARIO</button>
-                            -->
+                            </div>
+                            <!-- END BASIC TABLE -->
                         </div>
-                        <!--END FORMULARIO--->
                     </div>
+                    <div class="buttons">
+                    </div>
+
+                    </form>
                 </div>
-                <!-- END OVERVIEW -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main-content">
+    <div class="container-fluid">
+        <!-- OVERVIEW -->
+        <!-- Edit Modal HTML --> <!--Editar Formulario-->
+        <div id="editModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id="formEdit" name="formEdit" enctype="multipart/form-data">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Edit Form</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                &times
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label class="fancy-checkbox">
+                                        <span>Nombre completo</span>
+                                    </label>
+                                    <input type="text" class="form-control" id="fullNameEdit"
+                                           name="fullNameEdit" placeholder="Nombre" value="" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="fancy-checkbox">
+                                        <span>Sector</span>
+                                    </label>
+                                    <input type="text" class="form-control" name="sectorEdit"
+                                           id="sectorEdit"
+                                           placeholder="Sector" value="" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="fancy-checkbox">
+                                        <span>Academic Level</span>
+                                    </label>
+                                    <select name="academicLevelEdit" id="academicLevelEdit"
+                                            placeholder="level"
+                                            class="form-control"
+                                            aria-required="true" required>
+                                        <option selected value="0"> Nivel Academico</option>
+                                        <option name="academicLevel" value="Basico">Basico</option>
+                                        <option name="academicLevel" value="Medio">Medio</option>
+                                        <option name="academicLevel" value="Grado">Grado</option>
+                                        <option name="academicLevel" value="Maestria">Maestria</option>
+                                        <option name="academicLevel" value="Doctorado">Doctorado</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <input type="hidden" id="idEdit" name="idEdit" value="">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel
+                            </button>
+                            <button type="button" class="btn btn-info" data-dismiss="modal"
+                                    onclick="updateForm()">Editar
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
 
         <!-- END MAIN CONTENT -->
-        <!-- START MAIN CONTENT 2 -->
-        <div class="main-content">
-            <div class="container-fluid">
-                <!-- OVERVIEW -->
-
-
-                <!-- Edit Modal HTML --> <!--Editar Formulario-->
-                <div id="editModal" class="modal fade">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <form id="formEdit" name="formEdit" enctype="multipart/form-data">
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Edit Form</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="card-body">
-                                        <div class="form-group">
-                                            <label class="fancy-checkbox">
-                                                <span>Nombre completo</span>
-                                            </label>
-                                            <input type="text" class="form-control" id="fullNameEdit" name="fullNameEdit" placeholder="Nombre" value="" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="fancy-checkbox">
-                                                <span>Sector</span>
-                                            </label>
-                                            <input type="text" class="form-control" name="sectorEdit" id="sectorEdit"
-                                                   placeholder="Sector" value="" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="fancy-checkbox">
-                                                <span>Academic Level</span>
-                                            </label>
-                                            <select name="academicLevelEdit" id="academicLevelEdit" placeholder="level"
-                                                    class="form-control"
-                                                    aria-required="true" required>
-                                                <option selected value="0"> Nivel Academico</option>
-                                                <option name="academicLevel" value="Basico">Basico</option>
-                                                <option name="academicLevel" value="Medio">Medio</option>
-                                                <option name="academicLevel" value="Grado">Grado</option>
-                                                <option name="academicLevel" value="Maestria">Maestria</option>
-                                                <option name="academicLevel" value="Doctorado">Doctorado</option>
-                                            </select>
-                                        </div>
-
-                                    </div>
-                                    <input type="hidden" id="idEdit" name="idEdit" value="">
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                    <button type="button" class="btn btn-info" data-dismiss="modal" onclick="updateForm()">Editar</button>
-                                </div>
-                            </form>
+        <!-- Delete Modal HTML -->
+        <div id="deleteModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form name="f2" id="f2">
+                        <input type="hidden" id="idBorrar" name="idBorrar" class="btn btn-danger" value="">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Borrar Formulario</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                &times;
+                            </button>
                         </div>
-                    </div>
-                </div>
-
-                <!-- END MAIN CONTENT -->
-                <!-- Delete Modal HTML -->
-                <div id="deleteModal" class="modal fade">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <form name="f2" id="f2">
-                                <input type="hidden" id="idBorrar" name="idBorrar" class="btn btn-danger" value="">
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Borrar Formulario</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                        &times;
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>¿Esta seguro que desea eliminar este formulario?</p>
-                                    <p class="text-danger"><small>Esta acción no se puede Deshacer.</small></p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                    <button type="button" id="btnEliminar" class="btn btn-danger" data-dismiss="modal"
-                                            onclick="deleteForm()">Eliminar
-                                    </button>
-
-                                </div>
-                            </form>
+                        <div class="modal-body">
+                            <p>¿Esta seguro que desea eliminar este formulario?</p>
+                            <p class="text-danger"><small>Esta acción no se puede Deshacer.</small></p>
                         </div>
-                    </div>
-                </div>
-                <!---MODAL SI NO HAY DATA EN LA TABLA QUE NO SE PERMITA ENVIAR FORMS--->
-                <div id="infoRegister" class="modal fade">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <form>
-                                <input type="hidden" class="btn btn-danger" value="">
-                                <div class="modal-header">
-                                    <h2 class="modal-title"Formulario></h2>
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                        &times;
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <h2>No hay informacion registrada..</h2>
-                                    <h3 class="text-danger">Favor registrar un formulario</h3>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button></button>
-                                </div>
-                            </form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar
+                            </button>
+                            <button type="button" id="btnEliminar" class="btn btn-danger"
+                                    data-dismiss="modal"
+                                    onclick="deleteForm()">Eliminar
+                            </button>
+
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
-            <!-- END OVERVIEW -->
+        </div>
+        <!---MODAL SI NO HAY DATA EN LA TABLA QUE NO SE PERMITA ENVIAR FORMS--->
+        <div id="infoRegister" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form>
+                        <input type="hidden" class="btn btn-danger" value="">
+                        <div class="modal-header">
+                            <h2 class="modal-title" Formulario></h2>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                &times;
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h2>No hay informacion registrada..</h2>
+                            <h3 class="text-danger">Favor registrar un formulario</h3>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar
+                            </button>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
+    <!-- END OVERVIEW -->
+
     <!-- END MAIN CONTENT -->
 </div>
 <!-- END MAIN -->
@@ -271,8 +303,10 @@
 <script src="scripts/validCamps.js"></script>
 <script src="scripts/indexDB.js"></script>
 <script src="scripts/editDelete.js"></script>
+<script src="scripts/webcam.js"></script>
 
-
+<!-- CAMERA SCRIPT -->
+<script src="scripts/app.js"></script>
 </body>
 <!-- Javascript -->
 
