@@ -1,0 +1,186 @@
+Index: src/main/java/oppucmm/services/UserService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package oppucmm.services;\r\n\r\nimport oppucmm.models.User;\r\nimport oppucmm.services.connect.DataBaseRepository;\r\n\r\npublic class UserService extends DataBaseRepository<User> {\r\n    private static UserService userService;\r\n\r\n    public UserService() { super(User.class); }\r\n\r\n    public static UserService getInstance(){\r\n        if(userService == null){\r\n            userService = new UserService();\r\n        }\r\n        return userService;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/oppucmm/services/UserService.java b/src/main/java/oppucmm/services/UserService.java
+--- a/src/main/java/oppucmm/services/UserService.java	(revision be4735c5c644d7367c6da278821d639c926547b9)
++++ b/src/main/java/oppucmm/services/UserService.java	(date 1619060201287)
+@@ -2,6 +2,7 @@
+ 
+ import oppucmm.models.User;
+ import oppucmm.services.connect.DataBaseRepository;
++import org.jasypt.util.password.StrongPasswordEncryptor;
+ 
+ public class UserService extends DataBaseRepository<User> {
+     private static UserService userService;
+@@ -14,4 +15,13 @@
+         }
+         return userService;
+     }
++    public User loginReuest(String u1, String p1){
++        User user = buscar(u1);
++        StrongPasswordEncryptor pE = new StrongPasswordEncryptor();
++        if(user == null) return null;
++        if(pE.checkPassword(p1,user.getPassword())){
++            return user;
++        }
++        return null;
++    }
+ }
+Index: src/main/java/oppucmm/webservices/REST/Client/RESTClient.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/oppucmm/webservices/REST/Client/RESTClient.java b/src/main/java/oppucmm/webservices/REST/Client/RESTClient.java
+new file mode 100644
+--- /dev/null	(date 1619055467668)
++++ b/src/main/java/oppucmm/webservices/REST/Client/RESTClient.java	(date 1619055467668)
+@@ -0,0 +1,33 @@
++package oppucmm.webservices.REST.Client;
++
++import com.google.gson.JsonObject;
++import kong.unirest.HttpResponse;
++import kong.unirest.JsonNode;
++import kong.unirest.Unirest;
++import oppucmm.models.FormAux;
++
++public class RESTClient {
++    static String URL = "";
++    static String content = "Content-Type";
++    static String appJson = "application/json";
++
++    public void addForm(FormAux f1){
++        JsonObject st = new JsonObject();
++        st.addProperty("fullName",f1.getFullName());
++        st.addProperty("sector",f1.getSector());
++        st.addProperty("academicLevel",f1.getAcademicLevel());
++        st.addProperty("latitude",f1.getLatitude());
++        st.addProperty("longitude",f1.getLongitude());
++        st.addProperty("user",f1.getUser());
++        HttpResponse<JsonNode> r1 = Unirest.post(URL).header(content, appJson).body(st).asJson();
++        System.out.println("Status: " + r1.getStatus());
++        System.out.println("Formulario creado: "+ r1.getBody());
++    }
++    public static void listForm() {
++        HttpResponse<String> r1 = Unirest.get(URL).asString();
++        System.out.println("Status: " + r1.getStatus());
++        System.out.println("Datos recolectados: ");
++        System.out.println(r1.getBody());
++    }
++
++}
+Index: build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>plugins {\r\n    id 'java'\r\n    id 'application'\r\n    id \"com.github.johnrengelman.shadow\" version \"6.1.0\"\r\n\r\n}\r\n\r\ngroup 'ormCRUD'\r\nversion '1.0-SNAPSHOT'\r\n\r\nrepositories {\r\n    mavenCentral()\r\n}\r\nmainClassName = 'oppucmm.Main'\r\n\r\ndependencies {\r\n    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'\r\n    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'\r\n    //Dependencia del manejador de plantillas\r\n    implementation 'org.thymeleaf:thymeleaf:3.0.12.RELEASE'\r\n    //Dependencia de Javalin\r\n    implementation 'io.javalin:javalin:3.13.0'\r\n    //Dependencia de logs\r\n    implementation \"org.slf4j:slf4j-simple:1.8.0-beta4\"\r\n    //Dependencia de H2\r\n    implementation 'com.h2database:h2:1.4.200'\r\n    //Dependencia para encriptar\r\n    compile \"org.jasypt:jasypt:1.9.3\"\r\n    // https://mvnrepository.com/artifact/org.hibernate/hibernate-gradle-plugin\r\n    implementation group: 'org.hibernate', name: 'hibernate-gradle-plugin', version: '5.4.29.Final'\r\n    //JSON\r\n    compile \"com.fasterxml.jackson.core:jackson-databind:2.10.1\"\r\n    compile group: 'org.json', name: 'json', version: '20200518'\r\n    implementation 'io.jsonwebtoken:jjwt-api:0.10.5'\r\n    implementation 'io.jsonwebtoken:jjwt-impl:0.10.5'\r\n    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.10.5'\r\n    //Gson\r\n    compile group: 'com.google.code.gson', name: 'gson', version: '2.8.1'\r\n    // https://mvnrepository.com/artifact/org.postgresql/postgresql\r\n    implementation group: 'org.postgresql', name: 'postgresql', version: '42.1.4'\r\n    // Javax\r\n    compile \"org.glassfish.jaxb:jaxb-runtime:2.4.0-b180830.0438\"\r\n    compile \"com.sun.xml.ws:jaxws-rt:2.3.1\"\r\n    compile \"com.sun.xml.ws:rt:2.3.1\"\r\n\r\n\r\n}\r\n//Agregando UTF 8 para las plantillas\r\ncompileJava.options.encoding = 'UTF-8'\r\n\r\nshadowJar{\r\n    baseName = 'app'\r\n    classifier = ''\r\n    archiveVersion = ''\r\n}\r\ntask stage {\r\n    dependsOn shadowJar\r\n}\r\n\r\ntasks.withType(JavaCompile) {\r\n    options.encoding = 'UTF-8'\r\n}\r\n\r\ntest {\r\n    useJUnitPlatform()\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/build.gradle b/build.gradle
+--- a/build.gradle	(revision be4735c5c644d7367c6da278821d639c926547b9)
++++ b/build.gradle	(date 1619053613777)
+@@ -42,6 +42,9 @@
+     compile "org.glassfish.jaxb:jaxb-runtime:2.4.0-b180830.0438"
+     compile "com.sun.xml.ws:jaxws-rt:2.3.1"
+     compile "com.sun.xml.ws:rt:2.3.1"
++    //Uni rest
++    compile('com.konghq:unirest-java:3.2.00')
++
+ 
+ 
+ }
+Index: src/main/java/oppucmm/webservices/REST/Server/RESTController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package oppucmm.webservices.REST.Server;\r\n\r\npublic class RESTController {\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/oppucmm/webservices/REST/Server/RESTController.java b/src/main/java/oppucmm/webservices/REST/Server/RESTController.java
+--- a/src/main/java/oppucmm/webservices/REST/Server/RESTController.java	(revision be4735c5c644d7367c6da278821d639c926547b9)
++++ b/src/main/java/oppucmm/webservices/REST/Server/RESTController.java	(date 1619061929178)
+@@ -1,4 +1,29 @@
+ package oppucmm.webservices.REST.Server;
+ 
++import io.javalin.Javalin;
++import oppucmm.controllers.Controller;
++import oppucmm.models.Form;
++import oppucmm.models.FormAux;
++import oppucmm.models.RoleApp;
++import oppucmm.models.User;
++import oppucmm.services.FormService;
++import oppucmm.services.UserService;
++import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
++
++import java.util.*;
++
++import static io.javalin.apibuilder.ApiBuilder.*;
++import static io.javalin.apibuilder.ApiBuilder.get;
++
+ public class RESTController {
++    private FormService formService = FormService.getInstance();
++    private UserService userService = UserService.getInstance();
++    private Javalin app;
++    private Map<String, Object> model = new HashMap<>();
++
++    public RESTController(Javalin app) {
++        this.app = app;
++    }
++
++
+ }
+Index: build/tmp/compileJava/source-classes-mapping.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>oppucmm/services/connect/DataBaseRepository.java\r\n oppucmm.services.connect.DataBaseRepository\r\noppucmm/models/Location.java\r\n oppucmm.models.Location\r\noppucmm/Main.java\r\n oppucmm.Main\r\noppucmm/controllers/ControladorBase.java\r\n oppucmm.controllers.ControladorBase\r\noppucmm/services/UserService.java\r\n oppucmm.services.UserService\r\noppucmm/controllers/FormController.java\r\n oppucmm.controllers.FormController\r\noppucmm/services/connect/DataBaseServices.java\r\n oppucmm.services.connect.DataBaseServices\r\noppucmm/controllers/OpPucmmException.java\r\n oppucmm.controllers.OpPucmmException\r\noppucmm/controllers/WebSocketController.java\r\n oppucmm.controllers.WebSocketController\r\n oppucmm.controllers.WebSocketController$1\r\noppucmm/models/FormAux.java\r\n oppucmm.models.FormAux\r\noppucmm/models/Form.java\r\n oppucmm.models.Form\r\noppucmm/controllers/UserController.java\r\n oppucmm.controllers.UserController\r\noppucmm/controllers/Controller.java\r\n oppucmm.controllers.Controller\r\noppucmm/services/FormService.java\r\n oppucmm.services.FormService\r\noppucmm/models/User.java\r\n oppucmm.models.User\r\noppucmm/models/RoleApp.java\r\n oppucmm.models.RoleApp\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/build/tmp/compileJava/source-classes-mapping.txt b/build/tmp/compileJava/source-classes-mapping.txt
+--- a/build/tmp/compileJava/source-classes-mapping.txt	(revision be4735c5c644d7367c6da278821d639c926547b9)
++++ b/build/tmp/compileJava/source-classes-mapping.txt	(date 1619060387488)
+@@ -1,9 +1,13 @@
++oppucmm/webservices/SOAP/Server/SOAPController.java
++ oppucmm.webservices.SOAP.Server.SOAPController
+ oppucmm/services/connect/DataBaseRepository.java
+  oppucmm.services.connect.DataBaseRepository
+ oppucmm/models/Location.java
+  oppucmm.models.Location
+ oppucmm/Main.java
+  oppucmm.Main
++oppucmm/webservices/REST/Server/RESTController.java
++ oppucmm.webservices.REST.Server.RESTController
+ oppucmm/controllers/ControladorBase.java
+  oppucmm.controllers.ControladorBase
+ oppucmm/services/UserService.java
+@@ -14,6 +18,10 @@
+  oppucmm.services.connect.DataBaseServices
+ oppucmm/controllers/OpPucmmException.java
+  oppucmm.controllers.OpPucmmException
++oppucmm/webservices/SOAP/Server/SOAPService.java
++ oppucmm.webservices.SOAP.Server.SOAPService
++oppucmm/webservices/REST/Client/RESTClient.java
++ oppucmm.webservices.REST.Client.RESTClient
+ oppucmm/controllers/WebSocketController.java
+  oppucmm.controllers.WebSocketController
+  oppucmm.controllers.WebSocketController$1
+Index: src/main/java/oppucmm/webservices/SOAP/Server/SOAPService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package oppucmm.webservices.SOAP.Server;\r\n\r\nimport oppucmm.models.Form;\r\nimport oppucmm.services.FormService;\r\n\r\nimport javax.jws.WebMethod;\r\nimport javax.jws.WebService;\r\nimport java.util.List;\r\n\r\n@WebService\r\npublic class SOAPService {\r\n    public FormService formService = FormService.getInstance();\r\n\r\n    @WebMethod\r\n    public List<Form> findAll(){\r\n        return formService.explorarTodo();\r\n    }\r\n    @WebMethod\r\n    public Form create(Form form){\r\n        formService.crear(form);\r\n        return form;\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/oppucmm/webservices/SOAP/Server/SOAPService.java b/src/main/java/oppucmm/webservices/SOAP/Server/SOAPService.java
+--- a/src/main/java/oppucmm/webservices/SOAP/Server/SOAPService.java	(revision be4735c5c644d7367c6da278821d639c926547b9)
++++ b/src/main/java/oppucmm/webservices/SOAP/Server/SOAPService.java	(date 1619060201358)
+@@ -20,5 +20,4 @@
+         formService.crear(form);
+         return form;
+     }
+-
+ }
