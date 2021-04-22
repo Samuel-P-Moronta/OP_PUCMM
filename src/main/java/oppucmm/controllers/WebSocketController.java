@@ -3,10 +3,7 @@ package oppucmm.controllers;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.javalin.Javalin;
-import oppucmm.models.Form;
-import oppucmm.models.FormAux;
-import oppucmm.models.Location;
-import oppucmm.models.User;
+import oppucmm.models.*;
 import org.eclipse.jetty.websocket.api.Session;
 
 import java.util.ArrayList;
@@ -83,7 +80,9 @@ public class WebSocketController extends ControladorBase {
 
         for (FormAux f: f1) {
             Location locationAux = new Location(f.getLongitude(),f.getLatitude());
-            aux = new Form(f.getFullName(),f.getSector(),f.getAcademicLevel(),auxUsuario,locationAux);
+            Photo photo = new Photo(f.getFotoBase64());
+
+            aux = new Form(photo, f.getFullName(),f.getSector(),f.getAcademicLevel(),auxUsuario,locationAux);
             Controller.getInstance().addForm(aux);
         }
         return  f1.size();

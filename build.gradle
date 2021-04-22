@@ -38,6 +38,8 @@ dependencies {
     compile group: 'com.google.code.gson', name: 'gson', version: '2.8.1'
     // https://mvnrepository.com/artifact/org.postgresql/postgresql
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
+    //libreria para SOAP de Jetty https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-http-spi
+    compile group: 'org.eclipse.jetty', name: 'jetty-http-spi', version: '9.4.30.v20200611'
     // Javax
     compile "org.glassfish.jaxb:jaxb-runtime:2.4.0-b180830.0438"
     compile "com.sun.xml.ws:jaxws-rt:2.3.1"

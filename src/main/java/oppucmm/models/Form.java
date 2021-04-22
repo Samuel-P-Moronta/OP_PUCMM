@@ -14,12 +14,22 @@ public class Form implements Serializable {
     private String sector;
     @Column(length = 30)
     private String academicLevel;
+    @Embedded
+    private Photo photo;
     //New
     @OneToOne
     private User user;
     //New
     @Embedded
     private Location location;
+
+    public Photo getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
+    }
 /*
     @OneToOne()
     private Location location;*/
@@ -33,7 +43,8 @@ public class Form implements Serializable {
         this.academicLevel = academicLevel;
     }
     /*To create form*/
-    public Form(String name, String sector, String academicLevel, User user, Location location) {
+    public Form(Photo photo,String name, String sector, String academicLevel, User user, Location location) {
+        this.photo = photo;
         this.name = name;
         this.sector = sector;
         this.academicLevel = academicLevel;

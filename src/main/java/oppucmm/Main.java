@@ -10,6 +10,7 @@ import oppucmm.controllers.Controller;
 import oppucmm.controllers.WebSocketController;
 import oppucmm.models.Form;
 import oppucmm.models.Location;
+import oppucmm.models.Photo;
 import oppucmm.models.User;
 import oppucmm.services.connect.DataBaseServices;
 
@@ -52,9 +53,9 @@ public class Main {
         Location l3 = new Location( -70.664787, 19.473174);
 
        // Formularios de prueba
-        Form form1 = new Form("Juan","Santiago","Grado",auxUsuario,l1);
-        Form form2 = new Form("Soto Bello","Santiago","Doctorado",auxUsuario,l2);
-        Form form3 = new Form("Dilapa Batista","Santiago","Medio",auxUsuario,l3);
+        Form form1 = new Form(new Photo(),"Juan","Santiago","Grado",auxUsuario,l1);
+        Form form2 = new Form(new Photo(),"Soto Bello","Santiago","Doctorado",auxUsuario,l2);
+        Form form3 = new Form(new Photo(),"Dilapa Batista","Santiago","Medio",auxUsuario,l3);
 
         Controller.getInstance().addForm(form1);
         Controller.getInstance().addForm(form2);

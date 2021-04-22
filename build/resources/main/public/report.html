@@ -46,6 +46,7 @@
                                             <table class="table" id="dataTable">
                                                 <thead>
                                                 <tr>
+                                                    <th>FOTO</th>
                                                     <th>NOMBRE COMPLETO</th>
                                                     <th>SECTOR</th>
                                                     <th>NIVEL ACADEMICO</th>
@@ -58,6 +59,9 @@
                                                 </thead>
                                                 <tbody>
                                                 <tr th:each="aux : ${formularios}" id="userTable">
+                                                    <td  >
+                                                        <img th:src="${aux.photo.fotoBase64}" alt="Foto formulario" style="height: 100px; width: 100px" >
+                                                    </td>
                                                     <td th:text="${aux.name}"></td>
                                                     <td th:text="${aux.sector}"></td>
                                                     <td th:text="${aux.academicLevel}"></td>
