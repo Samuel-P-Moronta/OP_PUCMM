@@ -306,3 +306,16 @@ p {
      width: 100%;
  }
 
+#cameraPanel{
+    width: 50px;
+    height: 252px;
+}
+
+.vertical-center {
+    margin: 0;
+    position: absolute;
+
+    -ms-transform: translateX(218%);
+    transform: translateX(218%);
+}
+

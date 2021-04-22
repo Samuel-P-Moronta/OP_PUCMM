@@ -46,11 +46,21 @@ function GEOPosicion() {
 }
 
 
+
 function addForm() {
     var fullName = "";
     var sector = "";
     var academicLevel = "";
-
+    var foto = ""
+    foto = document.getElementById("cameraPanel").innerHTML
+    console.log("FOTO antes: ")
+    console.log(foto)
+    foto = foto.replace("<img src=","")
+    foto = foto.replace(/["']/g,"")
+    foto = foto.replace(">","")
+    console.log("FOTO despues: ")
+    console.log(foto)
+    //getBase64FromUrl(foto).then(console.log)
 
     fullName = $("#fullName").val();
     sector = $("#sector").val();
@@ -58,7 +68,7 @@ function addForm() {
     console.log("Nivel Escolar", academicLevel);
     //validando campos..
 
-    if (fullName != "" && sector != "" && academicLevel != "Nivel Academico") {
+    if (fullName != "" && sector != "" && academicLevel != "Nivel Academico" && foto != "") {
 
         var dbActiva = dataBase.result; //Nos retorna una referencia al IDBDatabase.
 
@@ -83,9 +93,11 @@ function addForm() {
         var formulario = transaccion.objectStore("form");
 
 
+
         //Para agregar se puede usar add o put; el add requiere que no exista el objeto.
         var request = formulario.put({
             //id: document.querySelector("#id").value,
+            fotoBase64:foto,
             fullName: document.querySelector("#fullName").value,
             sector: document.querySelector("#sector").value,
             academicLevel: document.querySelector("#academicLevel").value,
@@ -115,6 +127,11 @@ function addForm() {
         validate();
     }
 }
+
+
+
+
+
 
 function listarDatos() {
     var data = dataBase.result.transaction(["form"]);
@@ -147,9 +164,13 @@ function imprimirTabla(lista_formulario) {
     // creando la tabla...
     var fila = ""
     for (var key in lista_formulario) {
+
         console.log("indice: ", lista_formulario[key])
         fila += "<tr>"
         fila += "<td>" + lista_formulario[key].id + "</td>"
+        fila += "<td>" + "<img src="+lista_formulario[key].fotoBase64+" style=\"height: 100px; width: 100px\" >" + "</td>"
+
+
         fila += "<td>" + lista_formulario[key].fullName + "</td>"
         fila += "<td>" + lista_formulario[key].sector + "</td>"
         fila += "<td>" + lista_formulario[key].academicLevel + "</td>"

@@ -36,19 +36,27 @@
                                 <p class="lead">Formulario de registro</p>
                             </div>
                             <!---PARA PRESENTAR AQUI LA FOTOGRAFIA TOMADA--->
+
                             <div class="col-md-4">
 
                                 <div class="panel">
                                     <div class="panel-heading">
                                         <h3 class="panel-title">Fotografia</h3>
                                     </div>
-                                    <div class="panel-body" style="width: 50px; height: 179px">
 
+
+                                    <div class="panel-body"  name="cameraPanel" id="cameraPanel">
+                                        <!--<div id="results" ></div>-->
                                     </div>
-                                    <div class="panel-footer">
+                                    <!--<div class="panel-footer">
                                         <a class="btn btn-success update-pro" href="index.html#webcam-app"
                                            title="TOMAR FOTOGRAFIA"
                                            target="_blank"><i class="fa fa-camera"></i>
+                                            <span>TOMAR FOTOGRAFIA</span></a>
+                                    </div>-->
+                                    <div class="panel-footer">
+                                        <a id="startPhoto" href="#modalCamara"
+                                           class="btn btn-success update-pro" data-toggle="modal"><i class="fa fa-camera"></i>
                                             <span>TOMAR FOTOGRAFIA</span></a>
                                     </div>
                                 </div>
@@ -89,7 +97,7 @@
                                         <input id="idUsuario" type="hidden" name="idUsuario" th:value="${user}">
                                         <input type="hidden" name="latitude" id="latitude" value="">
                                         <input type="hidden" name="longitude" id="longitude" value="">
-                                        <input type="hidden" id="foto" value="">
+                                        <!--<input type="hidden" id="foto" value="">-->
 
 
                                     </div>
@@ -115,7 +123,9 @@
                                                 <table class="table" id="dataTable">
                                                     <thead>
                                                     <tr>
+
                                                         <th>NUMERO</th>
+                                                        <th  >FOTO</th>
                                                         <th>NOMBRE COMPLETO</th>
                                                         <th>SECTOR</th>
                                                         <th>NIVEL ACADEMICO</th>
@@ -125,6 +135,8 @@
                                                     </thead>
                                                     <tbody id="formList" name="formList">
                                                     <tr th:each="aux : ${b}">
+                                                        <td th:text="${aux.id}"></td>
+                                                        <td th:text="${aux.photo}"></td>
                                                         <td th:text="${aux.name}"></td>
                                                         <td th:text="${aux.sector}"></td>
                                                         <td th:text="${aux.academicLevel}"></td>
@@ -171,6 +183,61 @@
 <div class="main-content">
     <div class="container-fluid">
         <!-- OVERVIEW -->
+
+        <!-- Modal -->
+
+        <div class="modal fade" id="modalCamara" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Camara</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="height: 293px">
+                        <div id="camara"></div>
+                        <div class="vertical-center">
+                            <a id="take" class="btn btn-success update-pro" data-dismiss="modal" onclick="take_snapchot()" ><i class="fa fa-camera"></i>
+                            </a>
+                        </div>
+
+                        <style>
+                            #camara{
+                                height: 500px;
+                                width: 100%;
+                            }
+                        </style>
+
+                        <script>
+
+                            //load webcam
+                            Webcam.set({
+                                width: 320,
+                                height: 240,
+                                image_format: 'jpeg',
+                                jpeg_quality: 90
+                            })
+                            Webcam.attach("#camara")
+                            function take_snapchot(){
+                                Webcam.snap( function(data_uri) {
+                                    // display results in page
+                                    document.getElementById('cameraPanel').innerHTML =
+                                        '<img src="'+data_uri+'"/>';
+                                } );
+                            }
+                        </script>
+                    </div>
+
+                    <div class="modal-footer">
+                        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar
+                        </button>-->
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
         <!-- Edit Modal HTML --> <!--Editar Formulario-->
         <div id="editModal" class="modal fade">
             <div class="modal-dialog">
@@ -303,10 +370,8 @@
 <script src="scripts/validCamps.js"></script>
 <script src="scripts/indexDB.js"></script>
 <script src="scripts/editDelete.js"></script>
-<script src="scripts/webcam.js"></script>
 
-<!-- CAMERA SCRIPT -->
-<script src="scripts/app.js"></script>
+
 </body>
 <!-- Javascript -->
 
