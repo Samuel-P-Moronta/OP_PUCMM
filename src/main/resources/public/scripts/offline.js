@@ -11,7 +11,7 @@ function networkIndicator(condition) {
 
     switch (condition) {
         case "online":
-            document.getElementById("enviarForm").removeAttribute("disabled")
+            document.getElementById("enviarForm").removeAttribute("disabled");
             //document.getElementById("enviarForm").setAttribute("disabled", "false");
             var signal = document.getElementById("idIndicator");
             var boton = document.getElementById("enviarForm");

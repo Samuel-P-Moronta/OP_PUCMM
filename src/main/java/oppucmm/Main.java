@@ -13,6 +13,8 @@ import oppucmm.models.Location;
 import oppucmm.models.Photo;
 import oppucmm.models.User;
 import oppucmm.services.connect.DataBaseServices;
+import oppucmm.webservices.REST.Server.RESTApi;
+import oppucmm.webservices.REST.Server.RESTController;
 
 import java.sql.SQLException;
 
@@ -29,24 +31,24 @@ public class Main {
             //Database init
             DataBaseServices.getInstance().InciarBD();
         }
-        //Creando la instancia del servidor.
-        /*Javalin app = Javalin.create(config ->{
-            config.addStaticFiles("/public");
-            config.enableCorsForAllOrigins();
-        }).start(7000);*/
-
+        //WEB APPLICATION
         Javalin app = Javalin.create(config -> {
             config.addStaticFiles("/public");
             config.registerPlugin(new RouteOverviewPlugin("/rutas"));
             config.enableCorsForAllOrigins();
-
             JavalinRenderer.register(JavalinThymeleaf.INSTANCE, ".html");
-
         }).start(7000);
+        //REST APPLICATION
+        Javalin app2 = Javalin.create(config -> {
+            config.addStaticFiles("/public");
+            config.registerPlugin(new RouteOverviewPlugin("/rutas"));
+            config.enableCorsForAllOrigins();
+            JavalinRenderer.register(JavalinThymeleaf.INSTANCE, ".html");
+        }).start(8043);
+
+        //REST APPLICATION
         //Create fake user
         User auxUsuario = Controller.getInstance().createFakeUser();
-        //Create fake forms
-      //  Controller.getInstance().createFakeForm();
         // Ubicaciones de prueba
         Location l1 = new Location( -70.663414, 19.453105);
         Location l2 = new Location( -70.644531, 19.453105);
@@ -64,6 +66,11 @@ public class Main {
         new UserController(app).aplicarRutas();
         new FormController(app).aplicarRutas();
         new WebSocketController(app).aplicarRutas();
+        new RESTApi(app).aplicarRutas();
+
+
+
+        new RESTController(app2).aplicarRutas();
     }
     public static String getModoConexion() {
         return modoConexion;

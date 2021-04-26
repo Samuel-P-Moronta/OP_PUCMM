@@ -65,19 +65,6 @@ public class WebSocketController extends ControladorBase {
         if(f1.size()>0){
             auxUsuario = Controller.getInstance().getUserByUsername(f1.get(0).getUser());
         }
-       /* *//*Ubicaciones de prueba*//*
-        Location l1 = new Location( -70.663414, 19.453105);
-        Location l2 = new Location( -70.644531, 19.456018);
-        Location l3 = new Location( -70.664787, 19.473174);
-        *//*Formularios de prueba*//*
-        Form form1 = new Form("Juan","Santiago","Grado",auxUsuario,l1);
-        Form form2 = new Form("Soto Bello","Santiago","Doctorado",auxUsuario,l2);
-        Form form3 = new Form("Dilapa Batista","Santiago","Medio",auxUsuario,l3);
-
-        Controller.getInstance().addForm(form1);
-        Controller.getInstance().addForm(form2);
-        Controller.getInstance().addForm(form3);*/
-
         for (FormAux f: f1) {
             Location locationAux = new Location(f.getLongitude(),f.getLatitude());
             Photo photo = new Photo(f.getFotoBase64());

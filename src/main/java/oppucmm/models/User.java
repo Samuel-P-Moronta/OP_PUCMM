@@ -1,9 +1,11 @@
 package oppucmm.models;
 
 import io.javalin.core.security.Role;
+import oppucmm.services.FormService;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 @Entity
 @Table(name = "User")
@@ -71,5 +73,9 @@ public class User implements Serializable {
             }
         }
         return false;
+    }
+
+    public List<Form> formToGet(User user) {
+        return FormService.getInstance().findFormsByHash(user);
     }
 }

@@ -37,10 +37,22 @@ public class Form implements Serializable {
     public Form() {
     }
 
-    public Form(String name,String sector,String academicLevel){
+    public Form(String name,String sector,String academicLevel,User user){
         this.name = name;
         this.sector = sector;
         this.academicLevel = academicLevel;
+        this.user = user;
+    }
+    //EXPERIMENTANDO PARA EL REST
+    public Form(String name,String sector,String academicLevel,Location location,Photo photo){
+        this.name = name;
+        this.sector = sector;
+        this.academicLevel = academicLevel;
+        this.location = location;
+        this.photo = photo;
+
+
+        this.user = user;
     }
     /*To create form*/
     public Form(Photo photo,String name, String sector, String academicLevel, User user, Location location) {

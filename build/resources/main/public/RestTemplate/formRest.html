@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en" xmlns:th class="fullscreen-bg">
+<head>
+    <title>Registro | OP-PUCMM</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- VENDOR CSS -->
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/vendor/linearicons/style.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+    <!-- ICONS -->
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/pucmm-logo.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../assets/img/favicon.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <style>
+        body {
+            background-color: #00A0F0;
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+        }
+
+        .header h4 {
+            border-bottom: 1px solid #f0f0f0;
+            background-color: #f7f7f7;
+            padding: 20px 40px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+<!-- WRAPPER -->
+<div id="wrapper">
+    <div class="vertical-align-wrap">
+        <div class="vertical-align-middle">
+            <div class="panel" style="width: 800px; margin-left: auto; margin-right: auto;">
+                <div class="left">
+                    <div class="panel-body">
+                        <div class="header">
+                            <h4 class="lead">REST CLIENT</h4>
+                            <form method="get" action="/logOutRest">
+                                <button type="submit" class="btn btn-success">
+                                    <a class="btn btn-success update-pro" data-sm-link-text="CLICK"
+                                       target="_blank"><i class="fa fa-sign-out"></i>
+                                        <span>LOG OUT</span></a>
+                                </button>
+                            </form>
+                        </div>
+                        <br>
+                        <form method="post" class="form-auth-small" action="/formRest/addForm">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-id-card"></i></span>
+                                    <input  type="text" class="form-control" name="fullNameRest" id="fullNameRest" placeholder="Nombre" required onclick="GEOLOCATION()"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-map"></i></span>
+                                    <input type="text" class="form-control" name="sectorRest" id="sectorRest" placeholder="Sector" required  onclick="GEOLOCATION()"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-file-picture-o"></i></span>
+                                    <input  class="form-control" name="fotoBase64" id="fotoBase64" type="file"  placeholder="Foto" required onclick="GEOLOCATION()"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-paper-plane"></i></span>
+                                    <select onclick="GEOLOCATION()" name="academicLevelRest" id="academicLevelRest" placeholder="role"
+                                            class="form-control"
+                                            aria-required="true" required>
+                                        <option value="">Nivel Academico</option>
+                                        <option name="academicLevelRest" value="Basico">Administrador</option>
+                                        <option name="academicLevelRest" value="Medio">Medio</option>
+                                        <option name="academicLevelRest" value="Grado">Grado</option>
+                                        <option name="academicLevelRest" value="Maestria">Maestria</option>
+                                        <option name="academicLevelRest" value="Doctorado">Doctorado</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <input type="hidden" name="latitude" id="latitude" value="">
+                            <input type="hidden" id="longitude" name="longitude" value="">
+                            <div class="col-md-12">
+                                <br>
+                                <h6 DIV ALIGN=center th:text="${Error}" style="color:#ff0000"></h6>
+                                <h6 DIV ALIGN=center th:text="${Success}" style="color:#00A0F0"></h6>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block"><i class="fa fa-save"></i>GUARDAR
+                                FORMULARIO
+                            </button>
+                            <p></p>
+                            <!-- END LOGIN ENTERING -->
+                            <div class="col-md-12">
+                                <div class="panel">
+                                    <div class="panel-body">
+                                        <h3 class="panel-title">LISTADO DE FORMULARIOS</h3>
+                                        <div class="table-responsive">
+                                            <table class="table" id="dataTable">
+                                                <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Nombre</th>
+                                                    <th>Sector</th>
+                                                    <th>Nivel Academico</th>
+                                                    <th>latitud</th>
+                                                    <th>Longitud</th>
+                                                    <th>Creado por</th>
+
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="aux : ${formularios}">
+                                                    <td th:text="${aux.id}"></td>
+                                                    <td  >
+                                                        <img th:src="${aux.photo.fotoBase64}" alt="Foto formulario" style="height: 50px; width: 50px" >
+                                                    </td>
+                                                    <td th:text="${aux.name}"></td>
+                                                    <td th:text="${aux.sector}"></td>
+                                                    <td th:text="${aux.academicLevel}"></td>
+                                                    <td th:text="${aux.Location.latitude}"></td>
+                                                    <td th:text="${aux.Location.longitude}"></td>
+                                                    <td th:text="${aux.user.username}"></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function GEOLOCATION(){
+
+        function success(pos){
+            console.log('Working...')
+            var crd = pos.coords
+            document.querySelector("#latitude").value = crd.latitude;
+            document.querySelector("#longitude").value = crd.longitude;
+        }
+        navigator.geolocation.getCurrentPosition(success)
+    }
+
+</script>
+
+
+<!-- END WRAPPER -->
+
+</body>
+</html>

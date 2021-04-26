@@ -44,6 +44,11 @@ dependencies {
     compile "org.glassfish.jaxb:jaxb-runtime:2.4.0-b180830.0438"
     compile "com.sun.xml.ws:jaxws-rt:2.3.1"
     compile "com.sun.xml.ws:rt:2.3.1"
+    //REST
+    compile('com.konghq:unirest-java:3.2.00')
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'
+
 
 
 }
