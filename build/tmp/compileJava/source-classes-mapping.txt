@@ -1,5 +1,5 @@
-oppucmm/webservices/SOAP/Server/SOAPController.java
- oppucmm.webservices.SOAP.Server.SOAPController
+oppucmm/webservices/SOAP/Server/SOAPService.java
+ oppucmm.webservices.SOAP.Server.SOAPService
 oppucmm/services/connect/DataBaseRepository.java
  oppucmm.services.connect.DataBaseRepository
 oppucmm/models/Location.java
@@ -31,11 +31,11 @@ oppucmm/controllers/WebSocketController.java
  oppucmm.controllers.WebSocketController$1
 oppucmm/models/Photo.java
  oppucmm.models.Photo
-oppucmm/Main.java
- oppucmm.Main
+oppucmm/webservices/SOAP/Server/SOAPController.java
+ oppucmm.webservices.SOAP.Server.SOAPController
 oppucmm/models/Form.java
  oppucmm.models.Form
 oppucmm/controllers/Controller.java
  oppucmm.controllers.Controller
-oppucmm/webservices/SOAP/Server/SOAPService.java
- oppucmm.webservices.SOAP.Server.SOAPService
+oppucmm/Main.java
+ oppucmm.Main

@@ -13,6 +13,7 @@ import oppucmm.models.Location;
 import oppucmm.models.Photo;
 import oppucmm.models.User;
 import oppucmm.services.connect.DataBaseServices;
+import oppucmm.webservices.SOAP.Server.SOAPController;
 
 import java.sql.SQLException;
 
@@ -42,7 +43,10 @@ public class Main {
 
             JavalinRenderer.register(JavalinThymeleaf.INSTANCE, ".html");
 
-        }).start(7000);
+        });
+        //El contexto SOAP debe estar creando antes de inicio del servidor.
+        new SOAPController(app).aplicarRutas();
+        app.start(7000);
         //Create fake user
         User auxUsuario = Controller.getInstance().createFakeUser();
         //Create fake forms
