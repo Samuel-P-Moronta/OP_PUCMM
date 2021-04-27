@@ -27,6 +27,13 @@
 # Gradle
 .idea/**/gradle.xml
 .idea/**/libraries
+.gradle/6.7/executionHistory/
+.gradle/6.7/fileHashes/
+.gradle/6.7/javaCompile/
+.gradle/buildOutputCleanup/
+__pycache__
+
+
 
 # Gradle and Maven with auto-import
 # When using Gradle or Maven with auto-import, you should exclude module files,

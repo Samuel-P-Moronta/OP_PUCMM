@@ -27,6 +27,16 @@ public class FormAux {
         this.longitude = longitude;
         this.user = user;
     }
+    public FormAux(String fullName, String sector, String academicLevel, Double latitude, Double longitude,String fotoBase64) {
+        this.fotoBase64 = fotoBase64;
+        this.fullName = fullName;
+        this.sector = sector;
+        this.academicLevel = academicLevel;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.fotoBase64 = fotoBase64;
+
+    }
     /*Getters and Setters*/
     public int getId() { return id; }
 
@@ -60,5 +70,6 @@ public class FormAux {
     public void setFotoBase64(String fotoBase64) {
         this.fotoBase64 = fotoBase64;
     }
+
 }
 

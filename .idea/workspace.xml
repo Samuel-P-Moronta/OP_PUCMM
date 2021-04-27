@@ -22,10 +22,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-<<<<<<< HEAD
+
     <list default="true" id="aeea04c1-cf37-4685-a012-a629fa79c0d1" name="Default Changelist" comment="Subiedno CSS de los modals y boton">
 =======
-<<<<<<< HEAD
+
     <list default="true" id="5a1380f5-c9b3-45cf-8c99-cdf2162b47ee" name="Default Changelist" comment="Parte visual del formulario">
 =======
     <list default="true" id="aeea04c1-cf37-4685-a012-a629fa79c0d1" name="Default Changelist" comment="Quitando titulo del mapa">
@@ -216,22 +216,17 @@
       <workItem from="1617242186529" duration="16726000" />
       <workItem from="1617260763365" duration="10853000" />
       <workItem from="1617414796997" duration="12473000" />
-<<<<<<< HEAD
       <workItem from="1617427403171" duration="1959000" />
       <workItem from="1617656536875" duration="30000" />
       <workItem from="1617758193310" duration="717000" />
-=======
       <workItem from="1617427403171" duration="1449000" />
       <workItem from="1617542128081" duration="27186000" />
       <workItem from="1617632372353" duration="6926000" />
       <workItem from="1617640846583" duration="614000" />
       <workItem from="1617641572976" duration="18539000" />
       <workItem from="1617758755173" duration="174000" />
-<<<<<<< HEAD
       <workItem from="1617758968955" duration="5549000" />
-=======
->>>>>>> 343b320f455e2b85952de9f511a83a21bb697c77
->>>>>>> origin/master
+
     </task>
     <task id="LOCAL-00001" summary="Uploading updates...">
       <created>1617176089021</created>

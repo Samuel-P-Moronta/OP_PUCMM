@@ -129,14 +129,16 @@ public class FormController {
                 }, Collections.singleton(RoleApp.ROLE_EMPLEADO));
 
                 post("/crear", ctx -> {
-
-
+                    /*
                     Form form = new Form(ctx.formParam("name"),
                             ctx.formParam("sector"),
                             ctx.formParam("level")
                     );
 
+
                     formService.crear(form);
+                    */
+
 
                     ctx.redirect("/formularios");
 
@@ -156,19 +158,24 @@ public class FormController {
                 }, Collections.singleton(RoleApp.ROLE_EMPLEADO));
 
                 post("/editar", ctx -> {
+                    /*
                     Form form = new Form(ctx.formParam("name"),
                             ctx.formParam("sector"),
                             ctx.formParam("level")
                     );
+
                     Form old = (Form) model.get("form");
 
                     old.setName(form.getName());
                     old.setSector(form.getSector());
                     old.setAcademicLevel(form.getAcademicLevel());
                     formService.editar(old);
+
+                     */
                     onUpdate = false;
                     /*model.put("form",null);
                     model.put("forms",formService.explorarTodo());*/
+
                     ctx.redirect("/formularios");
                     ctx.render("public/form.html", model);
                 }, Collections.singleton(RoleApp.ROLE_EMPLEADO));

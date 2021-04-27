@@ -34,15 +34,12 @@ public class Controller {
     }
     /*Create fake user by default*/
     public User createFakeUser(){
-        User u1 = new User("admin","admin","admin", Set.of(RoleApp.ROLE_ADMIN,RoleApp.ROLE_EMPLEADO));
+        User u1 = new User("Samuel Peña","admin","admin", Set.of(RoleApp.ROLE_ADMIN,RoleApp.ROLE_EMPLEADO));
         UserService.getInstance().editar(u1);
         return u1;
     }
     /*Create fake form by default*/
-    public void createFakeForm(){
-        Form f1 = new Form("Samuel Peña","Santiago","Grado");
-        FormService.getInstance().crear(f1);
-    }
+
     /*Add forms*/
     public boolean addForm(Form f1){ return FormService.getInstance().crear(f1); }
     /*Delete form*/
@@ -55,5 +52,16 @@ public class Controller {
     public Form getFormById(int id) { return FormService.getInstance().buscar(id); }
     /*List form from form services*/
     public List<Form> listForm(){ return FormService.getInstance().explorarTodo(); }
+    /*Get form by user*/
+    public List<Form> getFormByUser(String user){
+        List<Form> f1 =new ArrayList<Form>();
+        for (Form f:listForm()) {
+            if(f.getUser().getUsername().equals(user)){
+                f1.add(f);
+            }
+        }
+        return f1;
+
+    }
 
 }

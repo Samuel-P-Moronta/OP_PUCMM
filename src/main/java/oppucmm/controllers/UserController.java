@@ -113,6 +113,7 @@ public class UserController {
           //  ctx.sessionAttribute("username", null);
             User u1 = Controller.getInstance().getUserByUsername(ctx.sessionAttribute("user"));
             List<Form> f1 = getFormByUser(Controller.getInstance().listForm(), u1);
+
             model.put("user", u1.getUsername());
             model.put("forms", f1);
             Map<String, Object> modelo = new HashMap<>();
