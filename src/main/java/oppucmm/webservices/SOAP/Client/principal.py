@@ -16,6 +16,7 @@ from PyQt5.QtWidgets import QFileDialog, QDialog, QTableWidgetItem
 from zeep import Client
 # importamos base64
 import base64
+import geocoder
 
 
 class Ui_MainWindow(QDialog):
@@ -148,6 +149,7 @@ class Ui_MainWindow(QDialog):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
         self.setTable()
+        self.getLocation()
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -216,7 +218,7 @@ class Ui_MainWindow(QDialog):
             rowPosition = self.tbForms.rowCount()
             self.tbForms.insertRow(rowPosition)
             # Foto
-            if forms[ind].photo.fotoBase64 == None:
+            if forms[ind].photo.fotoBase64 == None or forms[ind].photo.fotoBase64 == 'No':
                 self.tbForms.setItem(rowPosition, 0, QTableWidgetItem("No tiene foto"))
             else:
                 item = self.translateimage(forms[ind].photo.fotoBase64)
@@ -231,17 +233,26 @@ class Ui_MainWindow(QDialog):
             # Usuario
             self.tbForms.setItem(rowPosition, 4, QTableWidgetItem(forms[ind].user.username))
             ind += 1
+        lat, lon = self.getLocation()
+        print(lat, lon)
 
     def saveForm(self):
         if self.txtNombre.text() != "" and self.txtSector.text() != "" and self.cbxNivelAcademico.currentText() != "Nivel Academico":
+            if self.imagePath is None:
+                photo = {
+                    'fotoBase64': 'No'
+                }
+            else:
+                photo = {
+                    'fotoBase64': self.encodeBase64(self.imagePath)
+                }
 
-            photo = {
-                'fotoBase64': self.encodeBase64(self.imagePath)
-            }
+            lat, lon = self.getLocation()
             Location = {
-                'longitude': 55555,
-                'latitude': 55555
+                'longitude': lon,
+                'latitude': lat
             }
+            print(Location)
             form = {
                 'id': '',
                 'name': self.txtNombre.text(),
@@ -252,6 +263,7 @@ class Ui_MainWindow(QDialog):
                 'location': Location
             }
             self.client.service.create(form)
+            self.clear()
             self.setTable()
 
         else:
@@ -271,8 +283,19 @@ class Ui_MainWindow(QDialog):
         print(image_64_encode.decode("utf-8"))
         return imagen
 
+    def getLocation(self):
+        myloc = geocoder.ip('me')
+        return myloc.lng, myloc.lat
+
     def exit(self):
         QDialog.close()
+
+    def clear(self):
+        self.txtFoto.clear()
+        self.txtSector.clear()
+        self.txtNombre.clear()
+        self.cbxNivelAcademico.setCurrentIndex(0)
+        self.lbFoto.clear()
 
 
 if __name__ == "__main__":
