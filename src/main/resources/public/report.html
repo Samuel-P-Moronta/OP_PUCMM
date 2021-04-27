@@ -121,16 +121,18 @@
                         $('#dataTable tbody').on('click', '#verMapa', function () {
                             console.log("Entrando a funcion para ver mapa")
                             var Row = $(this).closest('tr');
-                            var longitud = Row.find('td:eq(3)').text();
-                            var latitud = Row.find('td:eq(4)').text();
-
+                            var longitud = Row.find('td:eq(4)').text();
+                            var latitud = Row.find('td:eq(5)').text();
+                            console.log(longitud)
                             iniciarMap(parseFloat(latitud), parseFloat(longitud));
                         });
 
 
                         function iniciarMap(lat, lng) {
                             console.log("Iniciando mapa...")
+
                             var coord = {lat: lat, lng: lng};
+                            console.log(coord)
                             var map = new google.maps.Map(document.getElementById('mapReport'), {
                                 zoom: 8.1,
                                 center: coord
