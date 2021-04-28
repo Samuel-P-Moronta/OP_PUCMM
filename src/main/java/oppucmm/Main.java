@@ -13,6 +13,8 @@ import oppucmm.models.Location;
 import oppucmm.models.Photo;
 import oppucmm.models.User;
 import oppucmm.services.connect.DataBaseServices;
+import oppucmm.webservices.REST.Server.RESTApi;
+import oppucmm.webservices.REST.Server.RESTController;
 import oppucmm.webservices.SOAP.Server.SOAPController;
 
 import java.sql.SQLException;
@@ -44,6 +46,14 @@ public class Main {
             JavalinRenderer.register(JavalinThymeleaf.INSTANCE, ".html");
 
         });
+
+        Javalin app2 = Javalin.create(config -> {
+            config.addStaticFiles("/public");
+            config.registerPlugin(new RouteOverviewPlugin("/rutas"));
+            config.enableCorsForAllOrigins();
+            JavalinRenderer.register(JavalinThymeleaf.INSTANCE, ".html");
+        }).start(8043);
+
         //El contexto SOAP debe estar creando antes de inicio del servidor.
         new SOAPController(app).aplicarRutas();
         app.start(7000);
@@ -68,6 +78,11 @@ public class Main {
         new UserController(app).aplicarRutas();
         new FormController(app).aplicarRutas();
         new WebSocketController(app).aplicarRutas();
+        new RESTApi(app).aplicarRutas();
+
+
+
+        new RESTController(app2).aplicarRutas();
     }
     public static String getModoConexion() {
         return modoConexion;
