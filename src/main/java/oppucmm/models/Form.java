@@ -23,17 +23,6 @@ public class Form implements Serializable {
     @Embedded
     private Location location;
 
-    public Photo getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(Photo photo) {
-        this.photo = photo;
-    }
-/*
-    @OneToOne()
-    private Location location;*/
-
     public Form() {
     }
 
@@ -43,8 +32,8 @@ public class Form implements Serializable {
         this.academicLevel = academicLevel;
         this.user = user;
     }
-    //EXPERIMENTANDO PARA EL REST
-    public Form(String name,String sector,String academicLevel,Location location,Photo photo){
+    // PARA EL REST
+    public Form(String name,String sector,String academicLevel,Location location){
         this.name = name;
         this.sector = sector;
         this.academicLevel = academicLevel;
@@ -107,5 +96,13 @@ public class Form implements Serializable {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public Photo getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
     }
 }

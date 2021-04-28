@@ -1,5 +1,6 @@
 package oppucmm.webservices.REST.Server;
 
+import oppucmm.controllers.Controller;
 import oppucmm.models.*;
 import oppucmm.services.FormService;
 import oppucmm.services.UserService;
@@ -25,19 +26,17 @@ public class Services {
         Form aux = null;
         if (form != null) {
             Location locationAux = new Location(form.getLongitude(),form.getLatitude());
-            Photo photo = new Photo(form.getFotoBase64());
-            aux = new Form(form.getFullName(), form.getSector(), form.getAcademicLevel(),locationAux,photo);
-            System.out.println("Se creo el form!!");
+            aux = new Form(form.getFullName(), form.getSector(), form.getAcademicLevel(),locationAux);
+            System.out.println("Form made by "+ form.getUser());
             FormService.getInstance().crear(aux);
             return new Form();
         }
         return null;
     }
-    public List<Form> getFormsByUsername(String username) {
-        User user = UserService.getInstance().buscar(username.trim());
+    public List<Form> getFormsByUsername() {
         List<Form> forms = null;
-        if (user != null) {
-            forms = user.formToGet(user);
+        if (forms != null) {
+            System.out.println("Estoy por aqui!!");
             forms.forEach((Form form) -> {
                 FormService.getInstance().getEntityManager().detach(form);
             });

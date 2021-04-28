@@ -1,12 +1,8 @@
 package oppucmm.webservices.REST.Server;
 
 import io.javalin.Javalin;
-import kong.unirest.Client;
 import oppucmm.controllers.Controller;
-import oppucmm.models.Form;
-import oppucmm.models.FormAux;
-import oppucmm.models.Photo;
-import oppucmm.models.User;
+import oppucmm.models.*;
 import oppucmm.services.FormService;
 import oppucmm.services.UserService;
 import oppucmm.webservices.REST.Client.RESTClient;
@@ -23,6 +19,7 @@ public class RESTController {
     public final static int NOT_FOUND = 404;
     private static String mpCryptoPassword = "BornToFight";
     private FormService formService = FormService.getInstance();
+
 
     static String URI = "";
     private Javalin app;
@@ -42,44 +39,22 @@ public class RESTController {
                     }
                 });
                 get("/", ctx -> {
-                    model.put("formularios",Controller.getInstance().listForm());
-                  //  model.put("formularios",RESTClient.listForm(ctx.sessionAttribute("user")));
-                    model.put("user", ctx.sessionAttribute("user"));
+                    model.put("formularios",RESTClient.listForm());
+                 //   model.put("formularios",Controller.getInstance().listForm());
                     ctx.render("public/RestTemplate/formRest.html", model);
                 });
                 post("/addForm",ctx -> {
-                    Double longitude = ctx.formParam("longitude",Double.class).get();
-                    Double latitude = ctx.formParam("latitude",Double.class).get();
-                    List<Photo> misFotos = new ArrayList<>();
+                    FormAux form = new FormAux(ctx.formParam("fullNameRest"),
+                            ctx.formParam("sectorRest"),
+                            ctx.formParam("academicLevelRest"),
+                            ctx.formParam("latitude",Double.class).get(),
+                            ctx.formParam("longitude",Double.class).get()
+                    );
+                    RESTClient.addForm(form);
 
-
-                    ctx.uploadedFiles("foto").forEach(uploadedFile -> {
-                        System.out.println("\n ENTRANDO A METODO PARA CARGAR IMAGENES.... \n");
-                        try {
-                            byte[] bytes = uploadedFile.getContent().readAllBytes();
-                            String encodedString = Base64.getEncoder().encodeToString(bytes);
-                            Photo foto = new Photo(encodedString);
-                            misFotos.add(foto);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    });
-                    if(misFotos.size() > 0){
-                        /*
-                        FormAux f1 = new FormAux(ctx.formParam("fullNameRest"),
-                                ctx.formParam("sectorRest"),
-                                ctx.formParam("academicLevelRest"),longitude,latitude);
-                        */
-                    }
-                    /*
-                    if(RESTClient.addForm(f1)== false){
-                        System.out.println("no se pudo agregar");
-                    }else{
-                        System.out.println("Se pudo agregar");
-                    }
                     ctx.redirect("/formRest");
 
-                     */
+
                 });
             });
             path("/logOutRest", () -> {

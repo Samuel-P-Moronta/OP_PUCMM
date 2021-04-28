@@ -2,6 +2,13 @@ package oppucmm.models;
 
 import oppucmm.controllers.Controller;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class FormAux {
 
     private int id;
@@ -12,7 +19,6 @@ public class FormAux {
     private Double latitude;
     private Double longitude;
     private String user;
-
     /*Empty constructor*/
     public FormAux() {
     }
@@ -27,16 +33,17 @@ public class FormAux {
         this.longitude = longitude;
         this.user = user;
     }
-    public FormAux(String fullName, String sector, String academicLevel, Double latitude, Double longitude,String fotoBase64) {
+    public FormAux(String fullName, String sector, String academicLevel, Double latitude, Double longitude) {
         this.fotoBase64 = fotoBase64;
         this.fullName = fullName;
         this.sector = sector;
         this.academicLevel = academicLevel;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.fotoBase64 = fotoBase64;
 
     }
+
+
     /*Getters and Setters*/
     public int getId() { return id; }
 

@@ -39,7 +39,7 @@
 <div id="wrapper">
     <div class="vertical-align-wrap">
         <div class="vertical-align-middle">
-            <div class="panel" style="width: 800px; margin-left: auto; margin-right: auto;">
+            <div class="panel" style="width: 900px; margin-left: auto; margin-right: auto;">
                 <div class="left">
                     <div class="panel-body">
                         <div class="header">
@@ -69,7 +69,7 @@
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-file-picture-o"></i></span>
-                                    <input  class="form-control" name="fotoBase64" id="fotoBase64" type="file"  placeholder="Foto" required onclick="GEOLOCATION()"/>
+                                    <input  class="form-control" name="foto" id="foto" type="file"  placeholder="Foto" required onclick="GEOLOCATION()"/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -113,22 +113,17 @@
                                                     <th>Nivel Academico</th>
                                                     <th>latitud</th>
                                                     <th>Longitud</th>
-                                                    <th>Creado por</th>
 
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <tr th:each="aux : ${formularios}">
                                                     <td th:text="${aux.id}"></td>
-                                                    <td  >
-                                                        <img th:src="${aux.photo.fotoBase64}" alt="Foto formulario" style="height: 50px; width: 50px" >
-                                                    </td>
                                                     <td th:text="${aux.name}"></td>
                                                     <td th:text="${aux.sector}"></td>
                                                     <td th:text="${aux.academicLevel}"></td>
                                                     <td th:text="${aux.Location.latitude}"></td>
                                                     <td th:text="${aux.Location.longitude}"></td>
-                                                    <td th:text="${aux.user.username}"></td>
                                                 </tr>
                                                 </tbody>
                                             </table>

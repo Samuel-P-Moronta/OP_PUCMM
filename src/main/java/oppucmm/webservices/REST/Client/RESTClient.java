@@ -14,13 +14,8 @@ import oppucmm.webservices.REST.Server.JWT;
 import java.util.List;
 
 public class RESTClient {
-    static String url = "http://localhost:7000/restApi/formulario/addForm";
-    static String urlMat = "http://localhost:7000/restApi/formAdd/{matricula}";
-    static String param = "matricula";
-    static String content = "Content-Type";
-    static String appJson = "application/json";
     private static JWT j1 = null;
-
+    static String urlListAllForm = "http://localhost:7000/restApi/formulario";
 
     /* Sending form to rest server...*/
     public static boolean checkUser(String usuario) {
@@ -39,17 +34,13 @@ public class RESTClient {
         System.out.println("\n Name: " + form.getFullName() +
                 " Sector: " + form.getSector() +
                 " Academic Level: " + form.getAcademicLevel());
-        /*Json Image*/
-        JsonObject imgJSON = new JsonObject();
-        imgJSON.addProperty("fotoBase64", form.getFotoBase64());
         JsonObject st = new JsonObject();
-        /*Adding properties*/
+
         st.addProperty("fullName", form.getFullName());
         st.addProperty("sector", form.getSector());
         st.addProperty("academicLevel", form.getAcademicLevel());
         st.addProperty("latitude", form.getLatitude());
         st.addProperty("longitude", form.getLongitude());
-
 
 
         HttpResponse<JsonNode> repuestaServidor = Unirest.post("http://localhost:7000/restApi/formulario/addForm")
@@ -61,15 +52,14 @@ public class RESTClient {
         return false;
     }
 
-    public static List<Form> listForm(String usuario) {
+    public static List<Form> listForm() {
         try{
-            HttpResponse<String> r1 = Unirest.get("http://localhost:7000/restApi/formulario/listForm" + "{user}").routeParam("user", usuario).asString();
+            HttpResponse<String> r1 = Unirest.get(urlListAllForm).asString();
             System.out.println("Status: " + r1.getStatus());
             System.out.println(r1.getBody());
         }catch (Exception e){
             e.printStackTrace();
         }
-
         return null;
     }
 }

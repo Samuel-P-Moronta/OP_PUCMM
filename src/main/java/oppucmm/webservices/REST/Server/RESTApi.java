@@ -14,6 +14,7 @@ import oppucmm.controllers.Controller;
 import oppucmm.models.Form;
 import oppucmm.models.FormAux;
 import oppucmm.models.User;
+import oppucmm.services.FormService;
 import oppucmm.services.UserService;
 import io.jsonwebtoken.security.SignatureException;
 
@@ -44,6 +45,7 @@ public class RESTApi {
              */
             path("/restApi", () -> {
                 //Autenticar Usuario
+                /*
                 get("/:autenticar", ctx -> {
 
                     JWT repuestaLogin = null;
@@ -58,7 +60,11 @@ public class RESTApi {
                     }else{
                         ctx.json(repuestaLogin);
                     }
+
+
                 });
+
+                 */
                 path("/formulario",()->{
                     /*
                     before("/addForm",ctx -> {
@@ -86,20 +92,14 @@ public class RESTApi {
                     after(ctx -> {
                         ctx.header("Content-Type", "application/json");
                     });
+                    //Listar
+                    get("/", ctx -> {
+                        ctx.json(FormService.getInstance().explorarTodo());
+                    });
                     //Agregar
                     post("/addForm", ctx -> {
                         FormAux f = ctx.bodyAsClass(FormAux.class);
                         ctx.json(Services.getInstance().addFormDb(f));
-                    });
-                    //Listar
-                    get("/listForm/:user", ctx -> {
-                        System.out.println("Parametro: "+ctx.pathParam("user"));
-                        ctx.json(Services.getInstance().getFormsByUsername(ctx.pathParam("user",String.class).get()));
-                    });
-                    //Listar por usuario.
-                    get("/listFormByUsername/:usuario", ctx -> {
-                        System.out.println( "Parametro recibido: " + ctx.pathParam("usuario"));
-                        ctx.json(Controller.getInstance().getFormByUser(ctx.pathParam("usuario",String.class).get()));
                     });
                 });
             });

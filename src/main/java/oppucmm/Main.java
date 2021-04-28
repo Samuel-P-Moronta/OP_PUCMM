@@ -79,10 +79,11 @@ public class Main {
         new FormController(app).aplicarRutas();
         new WebSocketController(app).aplicarRutas();
         new RESTApi(app).aplicarRutas();
-
-
-
+        //REST APP
         new RESTController(app2).aplicarRutas();
+
+
+
     }
     public static String getModoConexion() {
         return modoConexion;
