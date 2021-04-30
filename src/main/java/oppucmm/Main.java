@@ -13,7 +13,6 @@ import oppucmm.models.Location;
 import oppucmm.models.Photo;
 import oppucmm.models.User;
 import oppucmm.services.connect.DataBaseServices;
-import oppucmm.webservices.REST.Server.RESTApi;
 import oppucmm.webservices.REST.Server.RESTController;
 import oppucmm.webservices.SOAP.Server.SOAPController;
 
@@ -78,8 +77,10 @@ public class Main {
         new UserController(app).aplicarRutas();
         new FormController(app).aplicarRutas();
         new WebSocketController(app).aplicarRutas();
-        new RESTApi(app).aplicarRutas();
+       /* new RESTApi(app).aplicarRutas();
         //REST APP
+        new RESTController(app2).aplicarRutas();*/
+
         new RESTController(app2).aplicarRutas();
 
 

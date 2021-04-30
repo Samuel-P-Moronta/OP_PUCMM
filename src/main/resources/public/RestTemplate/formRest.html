@@ -1,8 +1,8 @@
 <!doctype html>
-<html lang="en" xmlns:th class="fullscreen-bg">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <title>Registro | OP-PUCMM</title>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <!-- VENDOR CSS -->
@@ -31,10 +31,17 @@
             padding: 20px 40px;
             text-align: center;
         }
+
+        #formLista{
+
+        }
     </style>
+
+
+
 </head>
 
-<body>
+<body onload="GEOLOCATION">
 <!-- WRAPPER -->
 <div id="wrapper">
     <div class="vertical-align-wrap">
@@ -53,11 +60,11 @@
                             </form>
                         </div>
                         <br>
-                        <form method="post" class="form-auth-small" action="/formRest/addForm">
+                        <form method="post" enctype="multipart/form-data" class="form-auth-small" action="/api/formularios">
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-id-card"></i></span>
-                                    <input  type="text" class="form-control" name="fullNameRest" id="fullNameRest" placeholder="Nombre" required onclick="GEOLOCATION()"/>
+                                    <input  type="text" class="form-control" name="fullNameRest" id="fullNameRest" placeholder="Nombre" required />
                                 </div>
                             </div>
                             <div class="form-group">
@@ -69,13 +76,13 @@
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-file-picture-o"></i></span>
-                                    <input  class="form-control" name="foto" id="foto" type="file"  placeholder="Foto" required onclick="GEOLOCATION()"/>
+                                    <input  class="form-control" name="fotoR" id="foto" type="file"  placeholder="Foto" multiple required onclick="GEOLOCATION()" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-paper-plane"></i></span>
-                                    <select onclick="GEOLOCATION()" name="academicLevelRest" id="academicLevelRest" placeholder="role"
+                                    <select name="academicLevelRest" id="academicLevelRest" placeholder="role"
                                             class="form-control"
                                             aria-required="true" required>
                                         <option value="">Nivel Academico</option>
@@ -104,29 +111,75 @@
                                     <div class="panel-body">
                                         <h3 class="panel-title">LISTADO DE FORMULARIOS</h3>
                                         <div class="table-responsive">
-                                            <table class="table" id="dataTable">
+
+                                            <!--<div class="container">
+                                                <div class="starter-template">
+                                                    <fieldset>
+                                                        <h1> <u>Your Order</u> </h1>
+
+                                                        <table id = "dataTable" border="1">
+                                                            <th>FOTO</th>
+                                                            <th>NOMBRE COMPLETO</th>
+                                                            <th>SECTOR</th>
+                                                            <th>NIVEL ACADEMICO</th>
+                                                            <th>USUARIO</th>
+                                                        </table>
+                                                    </fieldset>
+                                                </div>
+                                            </div>-->
+                                            <table class="table" id="dataTabla">
                                                 <thead>
                                                 <tr>
-                                                    <th>#</th>
-                                                    <th>Nombre</th>
-                                                    <th>Sector</th>
-                                                    <th>Nivel Academico</th>
-                                                    <th>latitud</th>
-                                                    <th>Longitud</th>
+                                                    <th>FOTO</th>
+                                                    <th>NOMBRE COMPLETO</th>
+                                                    <th>SECTOR</th>
+                                                    <th>NIVEL ACADEMICO</th>
+                                                    <th>USUARIO</th>
 
                                                 </tr>
                                                 </thead>
-                                                <tbody>
-                                                <tr th:each="aux : ${formularios}">
-                                                    <td th:text="${aux.id}"></td>
-                                                    <td th:text="${aux.name}"></td>
-                                                    <td th:text="${aux.sector}"></td>
-                                                    <td th:text="${aux.academicLevel}"></td>
-                                                    <td th:text="${aux.Location.latitude}"></td>
-                                                    <td th:text="${aux.Location.longitude}"></td>
+                                                <tbody id="formLista" name="formLista">
+                                                <tr th:each="aux : ${formularios}" >
+
                                                 </tr>
                                                 </tbody>
+
                                             </table>
+                                            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                                            <script th:inline="javascript">
+
+                                                /*<![CDATA[*/
+                                                // var forms = JSON.parse([[${formularios}]]);
+                                                var forms = JSON.parse(/*[[${formularios}]]*/ 'default');
+
+
+                                                /*]]>*/
+
+                                                // '[{\"id\":1,\"name\":\"Juan\",\"sector\":\"Santiago\",\"academicLevel\":\"Grado\",\"photo\":{\"fotoBase64\":\"\"},\"user\":{\"username\":\"admin\",\"fullName\":\"Samuel Pe�a\",\"password\":\"admin\",\"rolesList\":[\"ROLE_EMPLEADO\",\"ROLE_ADMIN\"]},\"location\":{\"longitude\":-70.663414,\"latitude\":19.453105}}, {\"id\":2,\"name\":\"Soto Bello\",\"sector\":\"Santiago\",\"academicLevel\":\"Doctorado\",\"photo\":{\"fotoBase64\":\"\"},\"user\":{\"username\":\"admin\",\"fullName\":\"Samuel Pe�a\",\"password\":\"admin\",\"rolesList\":[\"ROLE_EMPLEADO\",\"ROLE_ADMIN\"]},\"location\":{\"longitude\":-70.644531,\"latitude\":19.453105}}, {\"id\":3,\"name\":\"Dilapa Batista\",\"sector\":\"Santiago\",\"academicLevel\":\"Medio\",\"photo\":{\"fotoBase64\":\"\"},\"user\":{\"username\":\"admin\",\"fullName\":\"Samuel Pe�a\",\"password\":\"admin\",\"rolesList\":[\"ROLE_EMPLEADO\",\"ROLE_ADMIN\"]},\"location\":{\"longitude\":-70.664787,\"latitude\":19.473174}}]'
+                                                console.log("forms: ")
+                                                //console.log(forms)
+                                                productListSuccess(forms)
+
+                                                function productListSuccess(formularios) {
+                                                    console.log("aqui: ")
+
+
+                                                    var fila = ""
+                                                    for (var key in formularios) {
+                                                        fila += "<tr>"
+                                                        fila += "<td>" + "<img src=" +"data:"+formularios[key].photo.mimeType+";base64,"+ formularios[key].photo.fotoBase64 + " style=\"height: 100px; width: 100px\" alt=\"No tiene foto\" >" + "</td>"
+
+                                                        //src="@{'data:'+${aux.getMimeType()}+';base64,'+${aux.getFotoBase64()}}"
+                                                        fila += "<td>" + formularios[key].name + "</td>"
+                                                        fila += "<td>" + formularios[key].sector + "</td>"
+                                                        fila += "<td>" + formularios[key].academicLevel + "</td>"
+                                                        fila += "<td>" + formularios[key].user.username + "</td>"
+                                                        fila += "</tr>"
+                                                    }
+                                                    document.getElementById("formLista").innerHTML = fila
+
+                                                }
+                                            </script>
                                         </div>
                                     </div>
                                 </div>

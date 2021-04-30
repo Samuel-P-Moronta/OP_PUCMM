@@ -9,6 +9,8 @@ public class Photo implements Serializable {
     private static final long serialVersionUID = 1L;
     @Lob
     private String fotoBase64;
+    private String mimeType;
+
     /*@ManyToOne(fetch = FetchType.EAGER)
     private Form formAux;*/
 
@@ -25,6 +27,18 @@ public class Photo implements Serializable {
     public void setFormAux(Form formAux) {
         this.formAux = formAux;
     }*/
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getMimeType() {
+        return mimeType;
+    }
+
+    public void setMimeType(String mimeType) {
+        this.mimeType = mimeType;
+    }
 
     public String getFotoBase64() {
         return fotoBase64;
