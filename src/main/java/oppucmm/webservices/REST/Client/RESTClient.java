@@ -32,8 +32,8 @@ import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class RESTClient {
     //private static JWT j1 = null;
-    static String url = "http://localhost:7000/api",urlLogin = "http://localhost:7000/api-rest",token;
-    //static String url = "https://astrocaribbean.tech/api",urlLogin = "https://astrocaribbean.tech/api-rest",token;
+    //static String url = "http://localhost:7000/api",urlLogin = "http://localhost:7000/api-rest",token;
+    static String url = "https://astrocaribbean.tech/api",urlLogin = "https://astrocaribbean.tech/api-rest",token;
     private Javalin app;
     private Map<String, Object> model = new HashMap<>();
 
