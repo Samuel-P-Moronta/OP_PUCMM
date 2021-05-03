@@ -170,7 +170,7 @@
                                                     for (var key in formularios) {
                                                         fila += "<tr>"
                                                         fila += "<td>" + "<img src="+formularios[key].photo.fotoBase64 + " style=\"height: 100px; width: 100px\" alt=\"No tiene foto\" >" + "</td>"
-
+                                                        console.log(formularios[key].photo.fotoBase64)
                                                         //src="@{'data:'+${aux.getMimeType()}+';base64,'+${aux.getFotoBase64()}}"
                                                         fila += "<td>" + formularios[key].name + "</td>"
                                                         fila += "<td>" + formularios[key].sector + "</td>"

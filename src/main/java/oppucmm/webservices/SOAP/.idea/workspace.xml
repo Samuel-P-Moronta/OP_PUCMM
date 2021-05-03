@@ -20,13 +20,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="316b8919-10cb-4d94-a33b-0f0974d0b16e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../../../../.gradle/6.7/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../.gradle/6.7/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../../../../.gradle/6.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../.gradle/6.7/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../.gradle/6.7/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../.gradle/6.7/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../../../../.gradle/6.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../.gradle/6.7/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../.gradle/6.7/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../.gradle/6.7/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../.gradle/6.7/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../.gradle/6.7/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../../../../.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/Client/login.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/principal.py" beforeDir="false" afterPath="$PROJECT_DIR$/Client/principal.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/some_image.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/Client/some_image.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../build/classes/java/main/oppucmm/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../build/classes/java/main/oppucmm/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +117,7 @@
       <option name="presentableId" value="Default" />
       <updated>1619474716869</updated>
       <workItem from="1619474718045" duration="34781000" />
-      <workItem from="1620003255043" duration="2490000" />
+      <workItem from="1620003255043" duration="3108000" />
     </task>
     <servers />
   </component>

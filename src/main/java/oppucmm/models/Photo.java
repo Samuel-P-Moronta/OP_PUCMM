@@ -15,7 +15,7 @@ public class Photo implements Serializable {
     private Form formAux;*/
 
     public Photo() {
-        fotoBase64 = "";
+        fotoBase64 = "HOLA";
     }
     public Photo( String fotoBase64){
         this.fotoBase64 = fotoBase64;
