@@ -13,6 +13,7 @@ import oppucmm.models.Location;
 import oppucmm.models.Photo;
 import oppucmm.models.User;
 import oppucmm.services.connect.DataBaseServices;
+import oppucmm.webservices.REST.Client.RESTClient;
 import oppucmm.webservices.REST.Server.RESTController;
 import oppucmm.webservices.SOAP.Server.SOAPController;
 
@@ -46,12 +47,12 @@ public class Main {
 
         });
 
-        Javalin app2 = Javalin.create(config -> {
+        /*Javalin app2 = Javalin.create(config -> {
             config.addStaticFiles("/public");
             config.registerPlugin(new RouteOverviewPlugin("/rutas"));
             config.enableCorsForAllOrigins();
             JavalinRenderer.register(JavalinThymeleaf.INSTANCE, ".html");
-        }).start(8043);
+        }).start(8043);*/
 
         //El contexto SOAP debe estar creando antes de inicio del servidor.
         new SOAPController(app).aplicarRutas();
@@ -80,8 +81,14 @@ public class Main {
        /* new RESTApi(app).aplicarRutas();
         //REST APP
         new RESTController(app2).aplicarRutas();*/
-
-        new RESTController(app2).aplicarRutas();
+        Javalin app2 = Javalin.create(config -> {
+            config.addStaticFiles("/public");
+            config.registerPlugin(new RouteOverviewPlugin("/rutas"));
+            config.enableCorsForAllOrigins();
+            JavalinRenderer.register(JavalinThymeleaf.INSTANCE, ".html");
+        }).start(8043);
+        new RESTController(app).aplicarRutas();
+        new RESTClient(app2).aplicarRutas();
 
 
 
