@@ -269,25 +269,32 @@ function recibirInfServidor(mensaje) {
 }
 
 /*function conectar() {
-    let url = "https://astrocaribbean.tech:7000/wss"
-    let webSocket = new WebSocket(url);
-
-    webSocket.onmessage = function (data) {
-        recibirInformacionServidor(data);
-    };
-    webSocket.onopen = function (e) {
-        console.log("Conectado - status " + this.readyState);
-    };
-    webSocket.onclose = function (e) {
-        console.log("Desconectado - status " + this.readyState);
-    };
-}*/
-
-function conectar() {
     webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port + "/conectarServidor");
     var req = new XMLHttpRequest();
     req.timeout = 5000;
     req.open('GET', "http://" + location.hostname + ":" + location.port + "/formularios", true);
+    req.send();
+    //indicando los eventos:
+    webSocket.onmessage = function(data){recibirInformacionServidor(data);};
+    webSocket.onopen  = function(e){
+        var req = new XMLHttpRequest();
+        req.timeout = 5000;
+        req.open('GET', "https://" + location.hostname + ":" + location.port + "/formularios", true);
+        req.send();
+        console.log("Conectado - status "+this.readyState); };
+    webSocket.onclose = function(e){
+        console.log("Desconectado - status "+this.readyState);
+        var req = new XMLHttpRequest();
+        req.timeout = 5000;
+        req.open('GET', "https://" + location.hostname + ":" + location.port + "/formularios", true);
+        req.send();
+    };
+}*/
+function conectar() {
+    webSocket = new WebSocket("wss://" + location.hostname + ":" + location.port + "/conectarServidor");
+    var req = new XMLHttpRequest();
+    req.timeout = 5000;
+    req.open('GET', "https://" + location.hostname + ":" + location.port + "/formularios", true);
     req.send();
     //indicando los eventos:
     webSocket.onmessage = function(data){recibirInformacionServidor(data);};

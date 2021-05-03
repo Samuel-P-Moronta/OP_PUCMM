@@ -16,6 +16,7 @@ public class UserService extends DataBaseRepository<User> {
         return userService;
     }
     public User LoginRequest(String username, String password){
+        explorarTodo();
         User user = buscar(username);
         //StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
         if (user != null) {
