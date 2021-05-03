@@ -1,0 +1,199 @@
+Index: src/main/java/oppucmm/webservices/REST/Server/RESTController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package oppucmm.webservices.REST.Server;\r\n\r\nimport io.javalin.Javalin;\r\nimport oppucmm.models.*;\r\nimport oppucmm.services.UserService;\r\n\r\nimport java.io.IOException;\r\nimport java.util.*;\r\nimport java.util.concurrent.atomic.AtomicReference;\r\n\r\nimport static io.javalin.apibuilder.ApiBuilder.*;\r\n\r\npublic class RESTController {\r\n\r\n    private Javalin app;\r\n\r\n    public RESTController(Javalin app) {\r\n        this.app = app;\r\n    }\r\n\r\n    public void aplicarRutas() {\r\n\r\n        RESTService restService= new RESTService();\r\n        Map<String, Object> model = new HashMap<>();\r\n\r\n        app.get(\"/\", ctx -> ctx.redirect(\"/api\"));\r\n\r\n        app.routes(() -> path(\"/api\", () -> {\r\n\r\n            get(\"/\", ctx -> ctx.redirect(\"api/formularios\"));\r\n\r\n            get(\"/formularios\", ctx -> {\r\n                if(ctx.sessionAttribute(\"user\") != null){\r\n                    User user = UserService.getInstance().buscar(ctx.sessionAttribute(\"user\"));\r\n                    List<Form> forms = restService.findFormsByUser(user);\r\n                    //List<String> strings = forms.stream().map(JSONParser::toJson).collect(Collectors.toList());\r\n                    String strings = JSONParser.toJson(forms);\r\n                    model.put(\"formularios\",strings);\r\n                    System.out.println(strings);\r\n                    ctx.render(\"/public/RestTemplate/formRest.html\",model);\r\n                    //ctx.json(strings);\r\n                }\r\n                else{\r\n\r\n                    ctx.redirect(\"/login\");\r\n                }\r\n            });\r\n\r\n            post(\"/formularios\", ctx -> {\r\n                var files = ctx.uploadedFiles(\"fotoR\");\r\n                AtomicReference<Form> form = new AtomicReference<>(new Form());\r\n                ctx.uploadedFiles(\"fotoR\").forEach(uploadedFile -> {\r\n                    try {\r\n\r\n                        byte[] bytes = uploadedFile.getContent().readAllBytes();\r\n                        String encodedString = Base64.getEncoder().encodeToString(bytes);\r\n                        Photo foto = new Photo(encodedString);\r\n                        foto.setMimeType(uploadedFile.getContentType());\r\n                        User user = UserService.getInstance().buscar(ctx.sessionAttribute(\"user\"));\r\n\r\n                        //product = productService.find(ctx.pathParam(\"id\", Integer.class).get());\r\n\r\n                        //productService.update(product);\r\n                        Location location = new Location(ctx.formParam(\"longitude\",Double.class).get(),ctx.formParam(\"latitude\",Double.class).get());\r\n                      Form form2 = new Form(foto, ctx.formParam(\"fullNameRest\"),ctx.formParam(\"sectorRest\"),\r\n                                ctx.formParam(\"academicLevelRest\"),user,location);\r\n\r\n                      form.set(form2);\r\n                    } catch (IOException e) {\r\n                        e.printStackTrace();\r\n                    }\r\n\r\n                    restService.addForm(form.get());\r\n                });\r\n\r\n                ctx.redirect(\"/\");\r\n\r\n\r\n            });\r\n\r\n\r\n\r\n\r\n\r\n        }));\r\n\r\n\r\n            app.get(\"/logOutRest\", ctx -> {\r\n                if (ctx.sessionAttribute(\"user\") != null) {\r\n                    ctx.sessionAttribute(\"user\", null);\r\n                    ctx.req.getSession().invalidate();\r\n                }\r\n                if (ctx.cookie(\"user\") != null) {\r\n                    ctx.removeCookie(\"user\");\r\n                }\r\n                ctx.redirect(\"/\");\r\n            });\r\n\r\n\r\n\r\n        app.get(\"/login\",ctx -> {\r\n            ctx.render(\"public/RestTemplate/loginRest.html\");\r\n        });\r\n\r\n        app.post(\"login\",ctx -> {\r\n            String username = ctx.formParam(\"username\");\r\n            String password = ctx.formParam(\"password\");\r\n            User user = restService.logIn(username,password);\r\n            if(user != null){\r\n                ctx.sessionAttribute(\"user\", username);\r\n                ctx.redirect(\"api/formularios\");\r\n            }\r\n            else {\r\n                model.put(\"Error\", \"Contraseña incorrecta!\");\r\n                ctx.render(\"public/RestTemplate/loginRest.html\", model);\r\n            }\r\n\r\n        });\r\n\r\n\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/oppucmm/webservices/REST/Server/RESTController.java b/src/main/java/oppucmm/webservices/REST/Server/RESTController.java
+--- a/src/main/java/oppucmm/webservices/REST/Server/RESTController.java	(revision f851844951dce122a0d950a48fba53e0db3cd7a2)
++++ b/src/main/java/oppucmm/webservices/REST/Server/RESTController.java	(date 1619764980974)
+@@ -20,7 +20,7 @@
+ 
+     public void aplicarRutas() {
+ 
+-        RESTService restService= new RESTService();
++        RESTService restService = new RESTService();
+         Map<String, Object> model = new HashMap<>();
+ 
+         app.get("/", ctx -> ctx.redirect("/api"));
+@@ -30,17 +30,16 @@
+             get("/", ctx -> ctx.redirect("api/formularios"));
+ 
+             get("/formularios", ctx -> {
+-                if(ctx.sessionAttribute("user") != null){
++                if (ctx.sessionAttribute("user") != null) {
+                     User user = UserService.getInstance().buscar(ctx.sessionAttribute("user"));
+                     List<Form> forms = restService.findFormsByUser(user);
+                     //List<String> strings = forms.stream().map(JSONParser::toJson).collect(Collectors.toList());
+                     String strings = JSONParser.toJson(forms);
+-                    model.put("formularios",strings);
++                    model.put("formularios", strings);
+                     System.out.println(strings);
+-                    ctx.render("/public/RestTemplate/formRest.html",model);
++                    ctx.render("/public/RestTemplate/formRest.html", model);
+                     //ctx.json(strings);
+-                }
+-                else{
++                } else {
+ 
+                     ctx.redirect("/login");
+                 }
+@@ -61,11 +60,11 @@
+                         //product = productService.find(ctx.pathParam("id", Integer.class).get());
+ 
+                         //productService.update(product);
+-                        Location location = new Location(ctx.formParam("longitude",Double.class).get(),ctx.formParam("latitude",Double.class).get());
+-                      Form form2 = new Form(foto, ctx.formParam("fullNameRest"),ctx.formParam("sectorRest"),
+-                                ctx.formParam("academicLevelRest"),user,location);
++                        Location location = new Location(ctx.formParam("longitude", Double.class).get(), ctx.formParam("latitude", Double.class).get());
++                        Form form2 = new Form(foto, ctx.formParam("fullNameRest"), ctx.formParam("sectorRest"),
++                                ctx.formParam("academicLevelRest"), user, location);
+ 
+-                      form.set(form2);
++                        form.set(form2);
+                     } catch (IOException e) {
+                         e.printStackTrace();
+                     }
+@@ -79,38 +78,33 @@
+             });
+ 
+ 
+-
+-
+-
+         }));
+ 
+ 
+-            app.get("/logOutRest", ctx -> {
+-                if (ctx.sessionAttribute("user") != null) {
+-                    ctx.sessionAttribute("user", null);
+-                    ctx.req.getSession().invalidate();
+-                }
+-                if (ctx.cookie("user") != null) {
+-                    ctx.removeCookie("user");
+-                }
+-                ctx.redirect("/");
+-            });
++        app.get("/logOutRest", ctx -> {
++            if (ctx.sessionAttribute("user") != null) {
++                ctx.sessionAttribute("user", null);
++                ctx.req.getSession().invalidate();
++            }
++            if (ctx.cookie("user") != null) {
++                ctx.removeCookie("user");
++            }
++            ctx.redirect("/");
++        });
+ 
+ 
+-
+-        app.get("/login",ctx -> {
++        app.get("/login", ctx -> {
+             ctx.render("public/RestTemplate/loginRest.html");
+         });
+ 
+-        app.post("login",ctx -> {
++        app.post("login", ctx -> {
+             String username = ctx.formParam("username");
+             String password = ctx.formParam("password");
+-            User user = restService.logIn(username,password);
+-            if(user != null){
++            User user = restService.logIn(username, password);
++            if (user != null) {
+                 ctx.sessionAttribute("user", username);
+                 ctx.redirect("api/formularios");
+-            }
+-            else {
++            } else {
+                 model.put("Error", "Contraseña incorrecta!");
+                 ctx.render("public/RestTemplate/loginRest.html", model);
+             }
+Index: build/tmp/compileJava/source-classes-mapping.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>oppucmm/webservices/SOAP/Server/SOAPController.java\r\n oppucmm.webservices.SOAP.Server.SOAPController\r\noppucmm/models/Location.java\r\n oppucmm.models.Location\r\noppucmm/webservices/REST/Server/JWT.java\r\n oppucmm.webservices.REST.Server.JWT\r\noppucmm/services/UserService.java\r\n oppucmm.services.UserService\r\noppucmm/services/connect/DataBaseServices.java\r\n oppucmm.services.connect.DataBaseServices\r\noppucmm/controllers/OpPucmmException.java\r\n oppucmm.controllers.OpPucmmException\r\noppucmm/webservices/REST/Server/JSONParser.java\r\n oppucmm.webservices.REST.Server.JSONParser\r\noppucmm/webservices/REST/Client/RESTClient.java\r\n oppucmm.webservices.REST.Client.RESTClient\r\noppucmm/services/FormService.java\r\n oppucmm.services.FormService\r\noppucmm/controllers/UserController.java\r\n oppucmm.controllers.UserController\r\noppucmm/models/FormAux.java\r\n oppucmm.models.FormAux\r\noppucmm/controllers/FormController.java\r\n oppucmm.controllers.FormController\r\noppucmm/controllers/ControladorBase.java\r\n oppucmm.controllers.ControladorBase\r\noppucmm/models/RoleApp.java\r\n oppucmm.models.RoleApp\r\noppucmm/services/connect/DataBaseRepository.java\r\n oppucmm.services.connect.DataBaseRepository\r\noppucmm/models/User.java\r\n oppucmm.models.User\r\noppucmm/webservices/REST/Server/RESTService.java\r\n oppucmm.webservices.REST.Server.RESTService\r\noppucmm/controllers/WebSocketController.java\r\n oppucmm.controllers.WebSocketController\r\n oppucmm.controllers.WebSocketController$1\r\noppucmm/models/Photo.java\r\n oppucmm.models.Photo\r\noppucmm/Main.java\r\n oppucmm.Main\r\noppucmm/webservices/REST/Server/Services.java\r\n oppucmm.webservices.REST.Server.Services\r\noppucmm/models/Form.java\r\n oppucmm.models.Form\r\noppucmm/webservices/REST/Server/RESTController.java\r\n oppucmm.webservices.REST.Server.RESTController\r\noppucmm/controllers/Controller.java\r\n oppucmm.controllers.Controller\r\noppucmm/webservices/SOAP/Server/SOAPService.java\r\n oppucmm.webservices.SOAP.Server.SOAPService\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/build/tmp/compileJava/source-classes-mapping.txt b/build/tmp/compileJava/source-classes-mapping.txt
+--- a/build/tmp/compileJava/source-classes-mapping.txt	(revision f851844951dce122a0d950a48fba53e0db3cd7a2)
++++ b/build/tmp/compileJava/source-classes-mapping.txt	(date 1619819241427)
+@@ -2,50 +2,50 @@
+  oppucmm.webservices.SOAP.Server.SOAPController
+ oppucmm/models/Location.java
+  oppucmm.models.Location
+-oppucmm/webservices/REST/Server/JWT.java
+- oppucmm.webservices.REST.Server.JWT
++oppucmm/webservices/REST/Server/Services.java
++ oppucmm.webservices.REST.Server.Services
+ oppucmm/services/UserService.java
+  oppucmm.services.UserService
+ oppucmm/services/connect/DataBaseServices.java
+  oppucmm.services.connect.DataBaseServices
+ oppucmm/controllers/OpPucmmException.java
+  oppucmm.controllers.OpPucmmException
++oppucmm/models/User.java
++ oppucmm.models.User
++oppucmm/services/FormService.java
++ oppucmm.services.FormService
++oppucmm/controllers/WebSocketController.java
++ oppucmm.controllers.WebSocketController
++ oppucmm.controllers.WebSocketController$1
+ oppucmm/webservices/REST/Server/JSONParser.java
+  oppucmm.webservices.REST.Server.JSONParser
+-oppucmm/webservices/REST/Client/RESTClient.java
+- oppucmm.webservices.REST.Client.RESTClient
+-oppucmm/services/FormService.java
+- oppucmm.services.FormService
+-oppucmm/controllers/UserController.java
+- oppucmm.controllers.UserController
+ oppucmm/models/FormAux.java
+  oppucmm.models.FormAux
+-oppucmm/controllers/FormController.java
+- oppucmm.controllers.FormController
+-oppucmm/controllers/ControladorBase.java
+- oppucmm.controllers.ControladorBase
++oppucmm/models/Photo.java
++ oppucmm.models.Photo
++oppucmm/controllers/Controller.java
++ oppucmm.controllers.Controller
+ oppucmm/models/RoleApp.java
+  oppucmm.models.RoleApp
+ oppucmm/services/connect/DataBaseRepository.java
+  oppucmm.services.connect.DataBaseRepository
+-oppucmm/models/User.java
+- oppucmm.models.User
+-oppucmm/webservices/REST/Server/RESTService.java
+- oppucmm.webservices.REST.Server.RESTService
+-oppucmm/controllers/WebSocketController.java
+- oppucmm.controllers.WebSocketController
+- oppucmm.controllers.WebSocketController$1
+-oppucmm/models/Photo.java
+- oppucmm.models.Photo
+ oppucmm/Main.java
+  oppucmm.Main
+-oppucmm/webservices/REST/Server/Services.java
+- oppucmm.webservices.REST.Server.Services
++oppucmm/controllers/UserController.java
++ oppucmm.controllers.UserController
++oppucmm/controllers/ControladorBase.java
++ oppucmm.controllers.ControladorBase
++oppucmm/controllers/FormController.java
++ oppucmm.controllers.FormController
++oppucmm/webservices/SOAP/Server/SOAPService.java
++ oppucmm.webservices.SOAP.Server.SOAPService
++oppucmm/webservices/REST/Server/JWT.java
++ oppucmm.webservices.REST.Server.JWT
+ oppucmm/models/Form.java
+  oppucmm.models.Form
++oppucmm/webservices/REST/Server/RESTService.java
++ oppucmm.webservices.REST.Server.RESTService
++oppucmm/webservices/REST/Client/RESTClient.java
++ oppucmm.webservices.REST.Client.RESTClient
+ oppucmm/webservices/REST/Server/RESTController.java
+  oppucmm.webservices.REST.Server.RESTController
+-oppucmm/controllers/Controller.java
+- oppucmm.controllers.Controller
+-oppucmm/webservices/SOAP/Server/SOAPService.java
+- oppucmm.webservices.SOAP.Server.SOAPService
