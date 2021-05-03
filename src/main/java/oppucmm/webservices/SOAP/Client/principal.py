@@ -20,7 +20,7 @@ import geocoder
 
 
 class Ui_MainWindow(QDialog):
-    url = "http://localhost:7000/ws/SOAPService?wsdl"
+    url = "https://astrocaribbean.tech/ws/SOAPService?wsdl"
     # definimos nuestro cliente con la URL
     client = Client(url)
 

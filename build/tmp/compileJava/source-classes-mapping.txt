@@ -29,8 +29,8 @@ oppucmm/models/RoleApp.java
  oppucmm.models.RoleApp
 oppucmm/services/connect/DataBaseRepository.java
  oppucmm.services.connect.DataBaseRepository
-oppucmm/Main.java
- oppucmm.Main
+oppucmm/models/User.java
+ oppucmm.models.User
 oppucmm/webservices/REST/Server/RESTController.java
  oppucmm.webservices.REST.Server.RESTController
 oppucmm/controllers/ControladorBase.java
@@ -51,5 +51,5 @@ oppucmm/services/FormService.java
  oppucmm.services.FormService
 oppucmm/models/ErrorResponse.java
  oppucmm.models.ErrorResponse
-oppucmm/models/User.java
- oppucmm.models.User
+oppucmm/Main.java
+ oppucmm.Main

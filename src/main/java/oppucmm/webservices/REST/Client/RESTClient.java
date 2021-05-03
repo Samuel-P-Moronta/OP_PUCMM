@@ -32,7 +32,8 @@ import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class RESTClient {
     //private static JWT j1 = null;
-    static String url = "http://localhost:7000/api",urlLogin = "http://localhost:7000/api-rest",token;
+    //static String url = "http://localhost:7000/api",urlLogin = "http://localhost:7000/api-rest",token;
+    static String url = "https://astrocaribbean.tech/api",urlLogin = "https://astrocaribbean.tech/api-rest",token;
     private Javalin app;
     private Map<String, Object> model = new HashMap<>();
 
@@ -153,7 +154,8 @@ public class RESTClient {
                     try {
 
                         byte[] bytes = uploadedFile.getContent().readAllBytes();
-                        String encodedString = Base64.getEncoder().encodeToString(bytes);
+                        String encodedString = "data:image/jpeg;base64,";
+                        encodedString += Base64.getEncoder().encodeToString(bytes);
                         Photo foto = new Photo(encodedString);
                         foto.setMimeType(uploadedFile.getContentType());
                         if(ctx.sessionAttribute("user") != null) {

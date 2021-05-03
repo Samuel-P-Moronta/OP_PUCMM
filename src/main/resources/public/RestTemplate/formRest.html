@@ -131,9 +131,11 @@
                                                 <thead>
                                                 <tr>
                                                     <th>FOTO</th>
-                                                    <th>NOMBRE COMPLETO</th>
+                                                    <th>NOMBRE</th>
                                                     <th>SECTOR</th>
-                                                    <th>NIVEL ACADEMICO</th>
+                                                    <th>N. ACADEMICO</th>
+                                                    <th>LONGITUDE</th>
+                                                    <th>LATITUDE</th>
                                                     <th>USUARIO</th>
 
                                                 </tr>
@@ -167,12 +169,14 @@
                                                     var fila = ""
                                                     for (var key in formularios) {
                                                         fila += "<tr>"
-                                                        fila += "<td>" + "<img src=" +"data:"+formularios[key].photo.mimeType+";base64,"+ formularios[key].photo.fotoBase64 + " style=\"height: 100px; width: 100px\" alt=\"No tiene foto\" >" + "</td>"
+                                                        fila += "<td>" + "<img src="+formularios[key].photo.fotoBase64 + " style=\"height: 100px; width: 100px\" alt=\"No tiene foto\" >" + "</td>"
 
                                                         //src="@{'data:'+${aux.getMimeType()}+';base64,'+${aux.getFotoBase64()}}"
                                                         fila += "<td>" + formularios[key].name + "</td>"
                                                         fila += "<td>" + formularios[key].sector + "</td>"
                                                         fila += "<td>" + formularios[key].academicLevel + "</td>"
+                                                        fila += "<td>" + formularios[key].location.longitude + "</td>"
+                                                        fila += "<td>" + formularios[key].location.latitude + "</td>"
                                                         fila += "<td>" + formularios[key].user.username + "</td>"
                                                         fila += "</tr>"
                                                     }
