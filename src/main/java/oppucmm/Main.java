@@ -16,8 +16,12 @@ import oppucmm.services.connect.DataBaseServices;
 import oppucmm.webservices.REST.Client.RESTClient;
 import oppucmm.webservices.REST.Server.RESTController;
 import oppucmm.webservices.SOAP.Server.SOAPController;
+import org.eclipse.jetty.server.HttpConfiguration;
+import org.eclipse.jetty.server.HttpConnectionFactory;
+import org.eclipse.jetty.server.Server;
 
 import java.sql.SQLException;
+import java.util.Arrays;
 
 public class Main {
     private static String modoConexion = "";
@@ -39,6 +43,17 @@ public class Main {
         }).start(7000);*/
 
         Javalin app = Javalin.create(config -> {
+
+            config.server(() -> {
+                Server server = new Server();
+
+                Arrays.stream(server.getConnectors()).forEach(c -> {
+                    HttpConfiguration cfg = c.getConnectionFactory(HttpConnectionFactory.class).getHttpConfiguration();
+                    cfg.setRequestHeaderSize(2019_07_10);
+                });
+
+                return server;
+            });
             config.addStaticFiles("/public");
             config.registerPlugin(new RouteOverviewPlugin("/rutas"));
             config.enableCorsForAllOrigins();

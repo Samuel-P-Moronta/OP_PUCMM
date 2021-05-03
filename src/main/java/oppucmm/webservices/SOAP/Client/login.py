@@ -16,7 +16,7 @@ from Client.principal import Ui_MainWindow
 
 
 class Ui_Dialog(object):
-    url = "http://localhost:7000/ws/SOAPService?wsdl"
+    url = "https://astrocaribbean.tech/ws/SOAPService?wsdl"
     # definimos nuestro cliente con la URL
     client = Client(url)
 

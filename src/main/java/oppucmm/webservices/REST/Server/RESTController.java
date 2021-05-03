@@ -53,10 +53,13 @@ public class RESTController {
                 if(errors.isEmpty()) {
                     String tramaJwt = headerAutentificacion.replace(prefijo, "");
                     try {
+
                         Claims claims = Jwts.parser()
                                 .setSigningKey(Keys.hmacShaKeyFor(KEY_SECRET.getBytes()))
                                 .parseClaimsJws(tramaJwt).getBody();
+                        long tiempo = System.currentTimeMillis();
                         //mostrando la información para demostración.
+
                         System.out.println("Mostrando el JWT recibido: " + claims.toString());
                     } catch (ExpiredJwtException | MalformedJwtException | SignatureException e) { //Excepciones comunes
                         errors.put("403", e.getMessage());
@@ -73,10 +76,14 @@ public class RESTController {
                     if (ctx.sessionAttribute("user") != null) {
                         User user = UserService.getInstance().buscar(ctx.sessionAttribute("user"));
                         List<Form> forms = restService.findFormsByUser(user);
+                        forms.stream().forEach(form ->
+                                form.getPhoto().setFotoBase64(form.getPhoto().getFotoBase64().replace("data:image/jpeg;base64,/9j/",""))
+
+                        );
                         //List<String> strings = forms.stream().map(JSONParser::toJson).collect(Collectors.toList());
                         String strings = JSONParser.toJson(forms);
                         model.put("formularios", strings);
-                        System.out.println(strings);
+                        //System.out.println(strings);
                         //ctx.render("/public/RestTemplate/formRest.html",model);
                         JsonArray jsonObject = new JsonParser().parse(strings).getAsJsonArray();
                         ctx.json(forms);
@@ -204,12 +211,14 @@ public class RESTController {
         SecretKey secretKey = Keys.hmacShaKeyFor(KEY_SECRET.getBytes());
         //Valid date
         LocalDateTime localDateTime = LocalDateTime.now().plusMinutes(5);
-
+        long tiempo = System.currentTimeMillis();
         //Generate the JWT (frame)
         String jwt = Jwts.builder()
                 .setIssuer("PUCMM-FINAL-PROJECT")
                 .setSubject("OP | PUCMM API's")
-                .setExpiration(Date.from(localDateTime.toInstant(ZoneOffset.ofHours(-4))))
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(tiempo+120000))
+                //.setExpiration(Date.from(localDateTime.toInstant(ZoneOffset.ofHours(-4))))
                 .claim("username", u1.getUsername())
                 .signWith(secretKey)
                 .compact();
