@@ -3,9 +3,9 @@ $(document).ready(function ($) {
     $('#dataTable tbody').on('click', '#editar', function () {
         var curRow = $(this).closest('tr');
         var id = curRow.find('td:eq(0)').text();
-        var nombre = curRow.find('td:eq(1)').text();
-        var sector = curRow.find('td:eq(2)').text();
-        var role = curRow.find('td:eq(3)').text();
+        var nombre = curRow.find('td:eq(2)').text();
+        var sector = curRow.find('td:eq(3)').text();
+        var role = curRow.find('td:eq(4)').text();
 
         document.formEdit.idEdit.value = id;
         document.formEdit.fullNameEdit.value = nombre;

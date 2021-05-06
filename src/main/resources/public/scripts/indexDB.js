@@ -170,7 +170,6 @@ function imprimirTabla(lista_formulario) {
         fila += "<td>" + lista_formulario[key].id + "</td>"
         fila += "<td>" + "<img src="+lista_formulario[key].fotoBase64+" style=\"height: 100px; width: 100px\" >" + "</td>"
 
-
         fila += "<td>" + lista_formulario[key].fullName + "</td>"
         fila += "<td>" + lista_formulario[key].sector + "</td>"
         fila += "<td>" + lista_formulario[key].academicLevel + "</td>"
@@ -291,7 +290,8 @@ function recibirInfServidor(mensaje) {
     };
 }*/
 function conectar() {
-    webSocket = new WebSocket("wss://" + location.hostname + ":" + location.port + "/conectarServidor");
+    /*Cambiar a wss cuando se haga deploay para https*/
+    webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port + "/conectarServidor");
     var req = new XMLHttpRequest();
     req.timeout = 5000;
     req.open('GET', "https://" + location.hostname + ":" + location.port + "/formularios", true);

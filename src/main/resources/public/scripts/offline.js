@@ -15,7 +15,7 @@ function networkIndicator(condition) {
             //document.getElementById("enviarForm").setAttribute("disabled", "false");
             var signal = document.getElementById("idIndicator");
             var boton = document.getElementById("enviarForm");
-            signal.innerHTML = "Online <i id=\"logo\" class=\"fa fa-check-circle fa-fw\"></i>";
+            signal.innerHTML = "<i id=\"logo\" class=\"fa fa-wifi\"></i>";
             signal.setAttribute("class", "btn-success");
             break;
         case "offline":
@@ -25,7 +25,7 @@ function networkIndicator(condition) {
             boton.addEventListener("click",myf1)
 
 
-            signal.innerHTML = "Offline <i id=\"logo\" class=\"fa fa-times-circle fa-fw\"></i>";
+            signal.innerHTML = "<i id=\"logo\" class=\"fa fa-exclamation-triangle\"></i>";
             signal.setAttribute("class", "btn-danger");
             break;
     }

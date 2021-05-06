@@ -3,6 +3,7 @@ package oppucmm.controllers;
 import io.javalin.Javalin;
 import io.javalin.core.security.Role;
 import oppucmm.models.Form;
+import oppucmm.models.FormAux;
 import oppucmm.models.RoleApp;
 import oppucmm.models.User;
 import oppucmm.services.FormService;
@@ -30,6 +31,7 @@ public class FormController {
     public void aplicarRutas() {
 
         app.config.accessManager((handler, ctx, permittedRoles) -> {
+
 
 
             User user = null;
@@ -94,40 +96,33 @@ public class FormController {
 
                 });
                 get("/", ctx -> {
-                    /*
-                    System.out.println("llego patron");
-                    if(onUpdate ){
-                        model.put("accion","/formularios/editar");
-                    }
-                    else {
-                       // model.put("accion","/formularios/crear");
-                    }
-                     */
-                //    User u1 = Controller.getInstance().getUserByUsername(ctx.sessionAttribute("username"));
-                 //   List<Form> f1 = getFormByUser(Controller.getInstance().listForm(), u1);
-               //     model.put("user", u1.getUsername());
-              //      model.put("forms", f1);
-                    // para los botones activos del sidebar
                     if(ctx.sessionAttribute("user") != null) {
                         if (userService.buscar(ctx.sessionAttribute("user")).hasRole(RoleApp.ROLE_ADMIN)) {
                             model.put("admin", true);
+                            model.put("role","Administrador");
                         } else {
                             model.put("admin", false);
+                            model.put("role","Empleado");
                         }
                     }
                     else {
                         model.put("admin",false);
+                        model.put("role","Empleado");
+
                     }
-
                     model.put("formulario", "active");
+                    String u1 = "";
+                    u1 = UserService.getInstance().buscar(ctx.sessionAttribute("user")).getFullName();
+                    model.put("user", ctx.sessionAttribute("user"));
 
-                    model.put("user",ctx.sessionAttribute("user"));
+                    model.put("fullName",u1);
                     model.put("map", "");
                     model.put("report","");
 
                     ctx.render("public/form.html", model);
                 }, Collections.singleton(RoleApp.ROLE_EMPLEADO));
 
+                /*Esto se hace a nivel de JS en el cliente*/
                 post("/crear", ctx -> {
                     /*
                     Form form = new Form(ctx.formParam("name"),
@@ -214,12 +209,28 @@ public class FormController {
 
         app.get("/report", ctx -> {
 
-            // para los botones activos del sidebar
+            int cantForms = FormService.getInstance().generalStatistic(0);
+            model.put("cantForms",cantForms);
+            int cantSector = FormService.getInstance().generalStatistic(1);
+            model.put("cantSector",cantSector);
+            int cantBasico = FormService.getInstance().generalStatistic(2);
+            model.put("cantBasico",cantBasico);
+            int cantMedio = FormService.getInstance().generalStatistic(3);
+            model.put("cantMedio",cantMedio);
+            int cantGrado = FormService.getInstance().generalStatistic(4);
+            model.put("cantGrado",cantGrado);
+            int cantMaestria = FormService.getInstance().generalStatistic(5);
+            model.put("cantMaestria",cantMaestria);
+            int cantDoctorado = FormService.getInstance().generalStatistic(6);
+            model.put("cantDoctorado",cantDoctorado);
+
+
             model.put("formulario", "");
+            model.put("user", ctx.sessionAttribute("user"));
             model.put("map", "");
             model.put("report","active");
-            model.put("user", ctx.sessionAttribute("user"));
             model.put("formularios",Controller.getInstance().listForm());
+
             ctx.render("/public/report.html", model);
         }, Collections.singleton(RoleApp.ROLE_ADMIN));
     }

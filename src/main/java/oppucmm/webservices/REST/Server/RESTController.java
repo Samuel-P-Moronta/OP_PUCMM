@@ -225,9 +225,9 @@ public class RESTController {
         j1.setToken(jwt);
         j1.setUser(u1.getUsername());
         JsonObject st = new JsonObject();
-        /*JsonObject jsonJWT = new JsonParser().parse(JSONParser.toJson(j1)).getAsJsonObject();
-        st.add("token",jsonJWT);
-        st.addProperty("user",u1.getUsername());*/
+    /*JsonObject jsonJWT = new JsonParser().parse(JSONParser.toJson(j1)).getAsJsonObject();
+    st.add("token",jsonJWT);
+    st.addProperty("user",u1.getUsername());*/
         return j1;
     }
 }

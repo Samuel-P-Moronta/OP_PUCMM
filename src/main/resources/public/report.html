@@ -1,10 +1,13 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 
 <head th:replace="public/plantilla.html::head">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
             crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.4.2/build/ol.js"></script>
 </head>
 
@@ -29,138 +32,194 @@
             <div class="container-fluid">
                 <!-- OVERVIEW -->
                 <div class="panel panel-headline">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">OFICINA DE PLANEAMIENTO</h3>
-                        <p class="panel-subtitle">Pontificia Universidad Catolica Madre y Maestra</p>
-                        <!--PONER DIV AQUI O TEMPLATE PARA EL FORMULARIO--->
-                        <!--START FORMULARIO--->
-                        <div class="content">
-                            <div class="header">
-                                <p class="lead">Formulario en base de datos</p>
+                    <div class="panel panel-headline">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Oficina de Planeamiento | PUCMM</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="metric">
+                                        <span class="icon"><i class="fa fa-file"></i></span>
+                                        <p>
+                                            <span class="number" th:text="${cantForms}"></span>
+                                            <span class="title">Formularios</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="metric">
+                                        <span class="icon"><i class="fa fa-location-arrow"></i></span>
+                                        <p>
+                                            <span class="number" th:text="${cantSector}"></span>
+                                            <span class="title">Sectores encuestados</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="metric">
+                                        <span class="title">Niveles</span>
+                                        <p>
+                                            <span class="title">Basico
+                                                <a th:text="${cantBasico}"></a>
+                                            </span>
+                                            <span class="title">Medio
+                                                <a th:text="${cantMedio}"></a>
+                                            </span>
+                                            <span class="title">Grado
+                                                <a th:text="${cantGrado}"></a>
+                                            </span>
+                                            <span class="title">Maestria
+                                                <a th:text="${cantMaestria}"></a>
+                                            </span>
+                                            <span class="title">Doctorado
+                                                <a th:text="${cantDoctorado}"></a>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="main-content">
-                                <!-- OVERVIEW -->
-                                <div class="panel panel-headline">
-                                    <div class="panel-heading">
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="card mb-4">
+
+                                    <div class="card-header">
+                                        <i class="fas fa-table mr-1"></i>
+                                        DataTable Example
+                                    </div>
+                                    <div class="card-body">
                                         <div class="table-responsive">
-                                            <table class="table" id="dataTable">
+                                            <table class="table table-bordered" id="dataTable" width="100%"
+                                                   cellspacing="0">
                                                 <thead>
                                                 <tr>
-                                                    <th>FOTO</th>
-                                                    <th>NOMBRE COMPLETO</th>
-                                                    <th>SECTOR</th>
-                                                    <th>NIVEL ACADEMICO</th>
-                                                    <th>LONGITUD</th>
-                                                    <th>LATITUD</th>
-                                                    <th>REGISTRADO POR</th>
-                                                    <th>ACCION</th>
-
+                                                    <th>Foto</th>
+                                                    <th>Nombre</th>
+                                                    <th>Sector</th>
+                                                    <th>Nivel</th>
+                                                    <th>Longitud</th>
+                                                    <th>Latitud</th>
+                                                    <th>Creado por</th>
+                                                    <th>Mapa</th>
                                                 </tr>
                                                 </thead>
+                                                <tfoot>
+                                                <tr>
+                                                    <th>Foto</th>
+                                                    <th>Nombre</th>
+                                                    <th>Sector</th>
+                                                    <th>Nivel</th>
+                                                    <th>Longitud</th>
+                                                    <th>Latitud</th>
+                                                    <th>Creado por</th>
+                                                    <th>Mapa</th>
+                                                </tr>
+                                                </tfoot>
                                                 <tbody>
                                                 <tr th:each="aux : ${formularios}" id="userTable">
-                                                    <td  >
-                                                        <img th:src="${aux.photo.fotoBase64}" alt="Foto formulario" style="height: 100px; width: 100px" >
+                                                    <td>
+                                                        <img th:src="${aux.photo.fotoBase64}" alt="Foto formulario"
+                                                             style="height: 100px; width: 100px">
                                                     </td>
+
                                                     <td th:text="${aux.name}"></td>
                                                     <td th:text="${aux.sector}"></td>
                                                     <td th:text="${aux.academicLevel}"></td>
                                                     <td th:text="${aux.location.longitude}"></td>
                                                     <td th:text="${aux.location.latitude}"></td>
                                                     <td th:text="${aux.user.username}"></td>
+
+
                                                     <td>
                                                         <div class="buttons">
-
-                                                                <a href="#modalMapa" class="btn effect04" id="verMapa"
-                                                                   data-toggle="modal"><i class="lnr lnr-map-marker"></i></a>
+                                                            <z></z>
+                                                            <a href="#modalMapa" class="btn effect04" id="verMapa"
+                                                               data-toggle="modal"><i
+                                                                    class="lnr lnr-map-marker"></i></a>
 
 
                                                         </div>
                                                     </td>
                                                 </tr>
+
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
-                                    <!-- END BASIC TABLE -->
                                 </div>
                             </div>
-                            <!--
-                                                        <button type="submit" class="btn btn-primary" th:text="${save}">GUARDAR FORMULARIO</button>
-                            -->
                         </div>
-                        <!--END FORMULARIO--->
-
                     </div>
+                    <!-- END OVERVIEW -->
                 </div>
-                <!-- END OVERVIEW -->
-            </div>
 
-            <!-- END MAIN CONTENT -->
-            <!-- START MAIN CONTENT 2 -->
-            <!-- VISTA DE MAPA -->
+                <!-- END MAIN CONTENT -->
+                <!-- START MAIN CONTENT 2 -->
+                <!-- VISTA DE MAPA -->
             </div>
         </div>
     </div>
-<!-- Modal -->
+    <!-- Modal -->
 
-<div class="modal fade" id="modalMapa" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ubicacion del Formulario</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div id="mapReport" style="height: 500px; width: 100%"></div>
+    <div class="modal fade" id="modalMapa" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ubicacion del Formulario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="mapReport" style="height: 500px; width: 100%"></div>
 
-                <script type="text/javascript">
-                    $(document).ready(function ($) {
-                        $('#dataTable tbody').on('click', '#verMapa', function () {
-                            console.log("Entrando a funcion para ver mapa")
-                            var Row = $(this).closest('tr');
-                            var longitud = Row.find('td:eq(4)').text();
-                            var latitud = Row.find('td:eq(5)').text();
-                            console.log(longitud)
-                            iniciarMap(parseFloat(latitud), parseFloat(longitud));
+                    <script type="text/javascript">
+                        $(document).ready(function ($) {
+                            $('#dataTable tbody').on('click', '#verMapa', function () {
+                                console.log("Entrando a funcion para ver mapa")
+                                var Row = $(this).closest('tr');
+                                var longitud = Row.find('td:eq(4)').text();
+                                var latitud = Row.find('td:eq(5)').text();
+                                console.log(longitud)
+                                iniciarMap(parseFloat(latitud), parseFloat(longitud));
+                            });
+
+
+                            function iniciarMap(lat, lng) {
+                                console.log("Iniciando mapa...")
+
+                                var coord = {lat: lat, lng: lng};
+                                console.log(coord)
+                                var map = new google.maps.Map(document.getElementById('mapReport'), {
+                                    zoom: 8.1,
+                                    center: coord
+                                });
+                                addMarker({lat: lat, lng: lng}, map)
+                            }
+
+                            function addMarker(location, map) {
+                                new google.maps.Marker({
+                                    position: location,
+                                    map: map
+                                });
+                            }
                         });
+                    </script>
+                    <script type="text/javascript"
+                            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmO0JHOHAXY2C3Ud49KbMSwFf3APep1Ow"></script>
 
 
-                        function iniciarMap(lat, lng) {
-                            console.log("Iniciando mapa...")
-
-                            var coord = {lat: lat, lng: lng};
-                            console.log(coord)
-                            var map = new google.maps.Map(document.getElementById('mapReport'), {
-                                zoom: 8.1,
-                                center: coord
-                            });
-                            addMarker({lat: lat, lng: lng}, map)
-                        }
-
-                        function addMarker(location, map) {
-                            new google.maps.Marker({
-                                position: location,
-                                map: map
-                            });
-                        }
-                    });
-                </script>
-                <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmO0JHOHAXY2C3Ud49KbMSwFf3APep1Ow"></script>
-
-
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar
-                </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
 
-</div>
+    </div>
 </div>
 <div class="main-content">
     <div class="container-fluid">
@@ -173,13 +232,17 @@
 </div>
 <!-- END MAIN -->
 <!-- END WRAPPER -->
+
 <script src="/assets/vendor/jquery/jquery.min.js"></script>
 <script src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 <script src="/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <script src="/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
 <script src="/assets/vendor/chartist/js/chartist.min.js"></script>
 <script src="/assets/scripts/klorofil-common.js"></script>
-<!--<script src="assets/scripts/editDelete.js"></script>--->
+<script src="js/scripts.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+<script src="scripts/datatables-demo.js"></script>
 
 
 </body>
